@@ -226,7 +226,7 @@ const LandingPage = () => {
             >
               ⏳ 마감 임박: 4,000명 수학 원장님의 선택
             </motion.span>
-            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+            <h1 className="text-4xl md:text-6xl font-black text-white leading-loose mb-6">
               "수학 선생님,
               <br />
               아직도 전자칠판은
@@ -239,8 +239,6 @@ const LandingPage = () => {
             </h1>
             <p className="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
               대한민국 수학 강사 커뮤니티 SMMT가 직접 검증하고 선택한 유일한 전자칠판.
-              <br className="hidden md:block" />
-              넥소(NEXO)는 오직 <strong>'수학'</strong>을 위해 태어났습니다.
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <motion.a
