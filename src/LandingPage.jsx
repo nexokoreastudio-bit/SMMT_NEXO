@@ -672,7 +672,7 @@ const LandingPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-10"
           >
-            <h2 className="text-3xl font-bold text-deep-navy mb-2">무료 시연 & 견적 신청</h2>
+            <h2 className="text-3xl font-bold text-deep-navy mb-2">공동구매 신청</h2>
             <p className="text-gray-500">신청서를 남겨주시면 전문 상담원이 24시간 내에 해피콜을 드립니다.</p>
           </motion.div>
 
@@ -747,21 +747,7 @@ const LandingPage = () => {
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange"
               />
             </div>
-            <div>
-              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="inquiry_type">
-                문의 유형
-              </label>
-              <select
-                id="inquiry_type"
-                name="inquiry_type"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange bg-white"
-              >
-                <option value="quote">공동구매 견적 문의</option>
-                <option value="size_consult">사이즈/설치 환경 상담</option>
-                <option value="rental">렌탈/할부 프로그램 상담</option>
-                <option value="demo">무료 시연(체험) 요청</option>
-              </select>
-            </div>
+            <input type="hidden" name="inquiry_type" value="quote" />
 
             {/* Privacy Policy Consent */}
             <div className="flex items-start gap-3 mt-4">
@@ -782,7 +768,7 @@ const LandingPage = () => {
               type="submit"
               className="w-full bg-vibrant-orange text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-orange-600 transition mt-4"
             >
-              공동구매 혜택받고 신청하기
+              공동구매 신청
             </button>
             <p className="text-xs text-center text-gray-400 mt-2">
               * 상담 신청은 구매 확정이 아니며, 비용이 발생하지 않습니다.
