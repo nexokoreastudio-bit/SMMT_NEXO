@@ -28,8 +28,24 @@ const LandingPage = () => {
       alert('개인정보 수집 및 이용에 동의해주세요.');
       return;
     }
-    alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-    // 실제 CRM 제출 로직은 여기에 추가
+    
+    // Netlify Forms 제출
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => {
+        alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        form.reset();
+      })
+      .catch((error) => {
+        alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+        console.error(error);
+      });
   };
 
   const painPoints = [
@@ -646,12 +662,19 @@ const LandingPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-200"
+            name="consultation"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
             onSubmit={handleFormSubmit}
           >
-            {/* Hidden Fields for CRM Tracking */}
+            {/* Netlify Forms Hidden Fields */}
+            <input type="hidden" name="form-name" value="consultation" />
             <input type="hidden" name="utm_source" value="smmt_gonggu" />
             <input type="hidden" name="utm_campaign" value="2026_q1_promo" />
             <input type="hidden" name="inquiry_date" value={new Date().toISOString().split('T')[0]} />
+            {/* Honeypot field for spam protection */}
+            <input type="hidden" name="bot-field" />
 
             <div>
               <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="customer_name">
