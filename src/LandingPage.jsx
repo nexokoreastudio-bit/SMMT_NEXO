@@ -21,7 +21,7 @@ const LandingPage = () => {
     setActiveFAQ(activeFAQ === index ? null : index);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const agree = document.getElementById('privacy-agree');
     if (!agree.checked) {
@@ -33,19 +33,26 @@ const LandingPage = () => {
     const form = e.target;
     const formData = new FormData(form);
     
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString(),
-    })
-      .then(() => {
+    // form-name 필드 추가 (Netlify Forms 필수)
+    formData.append('form-name', 'consultation');
+    
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      });
+      
+      if (response.ok) {
         alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
         form.reset();
-      })
-      .catch((error) => {
-        alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
-        console.error(error);
-      });
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   const painPoints = [
