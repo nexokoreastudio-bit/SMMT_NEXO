@@ -586,18 +586,18 @@ const LandingPage = () => {
       </section>
 
       {/* Benefits & Pricing */}
-      <section id="price-benefit" className="py-20 bg-slate-50 px-4">
+      <section id="price-benefit" className="py-20 bg-white px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-10"
+            className="text-center mb-12"
           >
-            <span className="text-vibrant-orange font-bold text-sm tracking-widest">LIMITED OFFER</span>
-            <h2 className="text-3xl font-bold text-deep-navy mt-2">SMMT × NEXO 단독 혜택</h2>
-            <p className="text-gray-500 mt-2">단 2주간, 오직 이 페이지에서만 가능한 조건입니다.</p>
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">LIMITED OFFER</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">SMMT × NEXO 단독 혜택</h2>
+            <p className="text-gray-600 text-base">단 2주간, 오직 이 페이지에서만 가능한 조건입니다.</p>
           </motion.div>
 
           <motion.div
@@ -605,43 +605,56 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white border-2 border-vibrant-orange rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden"
+            className="bg-white border-2 border-vibrant-orange rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 bg-vibrant-orange text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+            <div className="absolute top-0 right-0 bg-vibrant-orange text-white text-xs font-bold px-4 py-2 rounded-bl-2xl">
               공동구매 한정
             </div>
 
-            <div className="space-y-6">
-              <ul className="space-y-4">
+            <div className="mt-2">
+              <ul className="space-y-6">
                 {[
                   {
-                    icon: <i className="fa-solid fa-check-circle"></i>,
+                    icon: <i className="fa-solid fa-check-circle text-xl"></i>,
                     title: '공동구매 특별 할인',
                     desc: '정가 대비 최대 OO% 할인 혜택',
                   },
                   {
-                    icon: <i className="fa-solid fa-truck-fast"></i>,
+                    icon: <i className="fa-solid fa-truck-fast text-xl"></i>,
                     title: '설치비 & 배송비 전액 무료',
                     desc: '지방, 계단 양중비(사다리차)까지 100% 지원',
                   },
                   {
-                    icon: <i className="fa-solid fa-chalkboard-user"></i>,
+                    icon: <i className="fa-solid fa-chalkboard-user text-xl"></i>,
                     title: '전문가 현장 방문 교육',
                     desc: '설치 당일 1시간, 마스터할 때까지 교육',
                   },
                   {
-                    icon: <i className="fa-solid fa-video"></i>,
+                    icon: <i className="fa-solid fa-video text-xl"></i>,
                     title: '[보너스] 이봉우 선생님 VOD',
                     desc: '전자칠판 200% 활용 수업 노하우 제공',
                   },
                 ].map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <span className="text-vibrant-orange mt-1">{benefit.icon}</span>
-                    <div>
-                      <strong className="block text-lg text-deep-navy">{benefit.title}</strong>
-                      <span className="text-gray-500 text-sm">{benefit.desc}</span>
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="flex items-start gap-4 pb-6 border-b border-gray-100 last:border-b-0 last:pb-0"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-vibrant-orange/10 flex items-center justify-center text-vibrant-orange">
+                      {benefit.icon}
                     </div>
-                  </li>
+                    <div className="flex-1 pt-1">
+                      <strong className="block text-lg md:text-xl font-bold text-deep-navy mb-1.5">
+                        {benefit.title}
+                      </strong>
+                      <span className="text-gray-600 text-sm md:text-base leading-relaxed block">
+                        {benefit.desc}
+                      </span>
+                    </div>
+                  </motion.li>
                 ))}
               </ul>
             </div>
@@ -779,23 +792,68 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-deep-navy text-gray-400 py-12 px-4 text-sm text-center">
+      <footer className="bg-deep-navy text-gray-400 py-12 px-4 text-sm">
         <div className="max-w-4xl mx-auto">
-          <p className="mb-4 font-bold text-white text-lg">SMMT × NEXO</p>
-          <p className="mb-2">(주)넥소 | 대표: 홍길동 | 사업자등록번호: 000-00-00000</p>
-          <p className="mb-6">주소: 인천광역시 서구 로봇랜드로 123 넥소 R&D센터</p>
-          <div className="flex justify-center gap-4">
-            <a href="#" className="hover:text-white">
-              이용약관
-            </a>
-            <a href="#" className="hover:text-white">
-              개인정보처리방침
-            </a>
-            <a href="#" className="hover:text-white">
-              고객센터
-            </a>
+          <div className="text-center mb-8">
+            <p className="mb-4 font-bold text-white text-lg">SMMT × NEXO</p>
+            <p className="text-vibrant-orange/80 text-xs mb-2">프리미엄 리퍼비시 IT 기기 전문 판매</p>
           </div>
-          <p className="mt-8 text-xs text-gray-600">Copyright © 2026 NEXO. All rights reserved.</p>
+          
+          <div className="grid md:grid-cols-2 gap-6 mb-8 text-left">
+            <div>
+              <h3 className="text-white font-semibold mb-3">회사 정보</h3>
+              <ul className="space-y-1.5 text-xs">
+                <li><span className="text-gray-500">상호:</span> (주)넥소</li>
+                <li><span className="text-gray-500">대표자:</span> 박정민</li>
+                <li><span className="text-gray-500">사업자 등록번호:</span> 289-87-00638</li>
+                <li><span className="text-gray-500">통신판매업신고번호:</span> 2020-인천서구-0523</li>
+                <li><span className="text-gray-500">주소:</span> 인천광역시 서구 보듬로158 블루텍 527호 (제조동)</li>
+                <li><span className="text-gray-500">개인정보보호책임자:</span> 장형태</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold mb-3">연락처</h3>
+              <ul className="space-y-1.5 text-xs">
+                <li>
+                  <span className="text-gray-500">전화:</span>{' '}
+                  <a href="tel:032-569-5771" className="hover:text-white transition-colors">
+                    032-569-5771~2
+                  </a>
+                  <span className="text-gray-500 ml-1">(평일 09:00~18:00)</span>
+                </li>
+                <li>
+                  <span className="text-gray-500">팩스:</span>{' '}
+                  <a href="tel:032-568-6361" className="hover:text-white transition-colors">
+                    032-568-6361
+                  </a>
+                  <span className="text-gray-500 ml-1">(평일 09:00~18:00)</span>
+                </li>
+                <li>
+                  <span className="text-gray-500">이메일:</span>{' '}
+                  <a href="mailto:nexokorea@gmail.com" className="hover:text-white transition-colors">
+                    nexokorea@gmail.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-700 pt-6">
+            <div className="flex flex-wrap justify-center gap-4 mb-4">
+              <a href="#" className="hover:text-white transition-colors">
+                이용약관
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                개인정보처리방침
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                고객센터
+              </a>
+            </div>
+            <p className="text-center text-xs text-gray-600 mt-4">
+              Copyright © 2026 (주)넥소. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
 
