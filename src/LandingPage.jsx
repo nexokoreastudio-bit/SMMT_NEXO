@@ -8,8 +8,32 @@ const LandingPage = () => {
   const [activeFAQTab, setActiveFAQTab] = useState('기능사용');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [flippedCards, setFlippedCards] = useState({});
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedMountType, setSelectedMountType] = useState('wall');
+  const [selectedQuantity, setSelectedQuantity] = useState('');
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95]);
+
+  // 가격 정보 (이미지 기준)
+  const priceData = {
+    '65': { wall: 2250000, stand: 2500000 }, // 벽걸이 2,250,000원, 스탠드 +250,000원
+    '75': { wall: 2750000, stand: 3000000 }, // 벽걸이 2,750,000원, 스탠드 +250,000원
+    '86': { wall: 3450000, stand: 3800000 }, // 벽걸이 3,450,000원, 스탠드 +350,000원
+  };
+  
+  // 정가 정보
+  const regularPriceData = {
+    '65': 2750000,
+    '75': 3200000,
+    '86': 4000000,
+  };
+
+  // 총 가격 계산
+  const calculateTotalPrice = () => {
+    if (!selectedSize || !selectedQuantity) return 0;
+    const unitPrice = priceData[selectedSize]?.[selectedMountType] || 0;
+    return unitPrice * parseInt(selectedQuantity);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,12 +117,7 @@ const LandingPage = () => {
       });
       
       if (response.ok) {
-        const inquiryType = formData.get('inquiry_type');
-        if (inquiryType === 'webinar') {
-          alert('웨비나 알림 신청이 완료되었습니다. 일정 확정 시 문자로 안내해드리겠습니다.');
-        } else {
-          alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-        }
+        alert('공동구매 주문이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
         form.reset();
       } else {
         throw new Error('Network response was not ok');
@@ -164,10 +183,6 @@ const LandingPage = () => {
       {
         q: '렌탈로 하면 신용등급에 영향이 있나요?',
         a: '아니요, 영향이 없습니다. 넥소 렌탈은 금융 대출 상품이 아닌 B2B 렌탈 방식이므로 원장님의 개인 신용 점수와 무관하게 이용 가능합니다. (사업자등록증 필요)',
-      },
-      {
-        q: '소상공인 국비 지원은 가능한가요?',
-        a: '2025년도 소상공인 스마트상점 지원 사업은 마감되었습니다. 현재는 공동구매 혜택가가 가장 저렴하며, 내년도 사업 시행 시 넥소에서 빠르게 안내드릴 예정입니다.',
       },
     ],
   };
@@ -327,15 +342,14 @@ const LandingPage = () => {
               ⏳ 마감 임박: 4,000명 수학 원장님의 선택
             </motion.span>
             <h1 className="text-4xl md:text-6xl font-black text-white leading-loose mb-6">
-              "수학 선생님,
-              <br />
-              아직도 전자칠판은
+              "넥소 전자칠판,
               <br />
               <span className="text-vibrant-orange underline decoration-4 underline-offset-4">
-                '판서감'이 나빠서
+                지금 바로 사용해보고 싶으신가요?
               </span>
               <br />
-              못 쓰겠다고 생각하십니까?"
+              <br />
+              4,000명 수학 선생님이 선택한 이유를 확인하세요"
             </h1>
             <p className="text-gray-200 text-lg md:text-xl mb-10 leading-relaxed">
               SMMT 4,000명 원장님이 검증한, 오직 <strong className="text-white">'수학'</strong>을 위해 태어난 넥소(NEXO).
@@ -688,6 +702,22 @@ const LandingPage = () => {
             <p className="text-gray-500 mt-2">가장 많이 고민하시는 부분, 딱 정해드립니다.</p>
           </motion.div>
 
+          {/* 칠판 이미지 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center"
+          >
+            <img
+              src="/images/whiteboard-size.jpg"
+              alt="전자칠판 사이즈 비교"
+              className="mx-auto rounded-2xl shadow-lg max-w-full h-auto"
+              style={{ maxHeight: '500px' }}
+            />
+          </motion.div>
+
           <div className="grid md:grid-cols-3 gap-6">
             {sizeOptions.map((option, index) => (
               <motion.div
@@ -735,6 +765,432 @@ const LandingPage = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Product Specifications - 상세 제품 사양 */}
+      <section id="product-specs" className="pt-24 pb-20 bg-white px-4 snap-start">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">PRODUCT SPECIFICATIONS</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">넥소 NX-H 시리즈 상세 사양</h2>
+            <p className="text-gray-600 text-base">65인치, 75인치, 86인치 공통 사양</p>
+          </motion.div>
+
+          {/* 디스플레이 사양 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-tv text-vibrant-orange"></i>
+              디스플레이 (Display)
+            </h3>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div><strong className="text-deep-navy">베젤 색상:</strong> <span className="text-gray-700">알루미늄 프레임 (화이트)</span></div>
+                <div><strong className="text-deep-navy">패널 유형:</strong> <span className="text-gray-700">Ultra HD Direct-type LED</span></div>
+                <div><strong className="text-deep-navy">해상도:</strong> <span className="text-gray-700">3840×2160 / 60Hz</span></div>
+                <div><strong className="text-deep-navy">픽셀 피치:</strong> <span className="text-gray-700">0.372mm × 0.372mm</span></div>
+                <div><strong className="text-deep-navy">경도 유리:</strong> <span className="text-gray-700">Mohs-9 level</span></div>
+                <div><strong className="text-deep-navy">유리 패널:</strong> <span className="text-gray-700">Anti-glare glass (무반사 강화유리)</span></div>
+                <div><strong className="text-deep-navy">종횡비:</strong> <span className="text-gray-700">16:09</span></div>
+                <div><strong className="text-deep-navy">대비 비율:</strong> <span className="text-gray-700">1200:1 (typical)</span></div>
+                <div><strong className="text-deep-navy">밝기:</strong> <span className="text-gray-700">450cd/m²</span></div>
+                <div><strong className="text-deep-navy">색상 깊이:</strong> <span className="text-gray-700">10.7억 색상</span></div>
+                <div><strong className="text-deep-navy">시야각:</strong> <span className="text-gray-700">178°</span></div>
+                <div><strong className="text-deep-navy">수명:</strong> <span className="text-gray-700">50,000시간</span></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 터치 사양 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-hand-pointer text-vibrant-orange"></i>
+              터치 유형 (Touch Type)
+            </h3>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div><strong className="text-deep-navy">터치 기술:</strong> <span className="text-gray-700">IR Touch</span></div>
+                <div><strong className="text-deep-navy">멀티 터치:</strong> <span className="text-gray-700">최대 40점 (Windows)</span></div>
+                <div><strong className="text-deep-navy">다중 쓰기:</strong> <span className="text-gray-700">최대 20점 (Windows)</span></div>
+                <div><strong className="text-deep-navy">터치 정밀도:</strong> <span className="text-gray-700">1mm (90% 이상 영역)</span></div>
+                <div><strong className="text-deep-navy">자동 보정:</strong> <span className="text-gray-700">지원</span></div>
+                <div><strong className="text-deep-navy">터치 응답 시간:</strong> <span className="text-gray-700">첫 터치 &lt;2ms, 연속 터치 &lt;8ms</span></div>
+                <div className="md:col-span-2"><strong className="text-deep-navy">지원 OS:</strong> <span className="text-gray-700">Windows 7/8/10/11, Android, Mac, Linux, Chrome OS</span></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 사운드 & 마이크 & 카메라 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-volume-high text-vibrant-orange"></i>
+              사운드 & 마이크 & 카메라
+            </h3>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="font-bold text-deep-navy mb-3">사운드</h4>
+                  <div className="space-y-2 text-sm">
+                    <div><strong>프론트 스피커:</strong> <span className="text-gray-700">20W × 2</span></div>
+                    <div><strong>서브우퍼:</strong> <span className="text-gray-700">20W × 1</span></div>
+                    <div><strong>총 출력:</strong> <span className="text-gray-700">≤60W</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-deep-navy mb-3">마이크 (옵션)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div><strong>유형:</strong> <span className="text-gray-700">광역 마이크</span></div>
+                    <div><strong>개수:</strong> <span className="text-gray-700">8개</span></div>
+                    <div><strong>자동 스위치:</strong> <span className="text-gray-700">지원</span></div>
+                    <div><strong>분리 가능:</strong> <span className="text-gray-700">지원</span></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-deep-navy mb-3">카메라 (옵션)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div><strong>해상도:</strong> <span className="text-gray-700">4800M (AI) / 6400M</span></div>
+                    <div><strong>최대 해상도:</strong> <span className="text-gray-700">4208×3120 (30fps)</span></div>
+                    <div><strong>시야각:</strong> <span className="text-gray-700">120°</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 연결 포트 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-plug text-vibrant-orange"></i>
+              연결 포트 (Connections)
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h4 className="font-bold text-deep-navy mb-3">전면 연결</h4>
+                <div className="space-y-2 text-sm">
+                  <div><strong>Type-C:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>HDMI IN:</strong> <span className="text-gray-700">3개</span></div>
+                  <div><strong>USB 3.0:</strong> <span className="text-gray-700">2개</span></div>
+                  <div><strong>Touch USB:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>NFC:</strong> <span className="text-gray-700">지원</span></div>
+                  <div><strong>지문 인식:</strong> <span className="text-gray-700">지원</span></div>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h4 className="font-bold text-deep-navy mb-3">하단 측면 연결</h4>
+                <div className="space-y-2 text-sm">
+                  <div><strong>RJ45 IN/OUT:</strong> <span className="text-gray-700">각 1개</span></div>
+                  <div><strong>HDMI 출력:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>Type-C 출력:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>VGA:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>RS232:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>SPDIF 아웃:</strong> <span className="text-gray-700">1개</span></div>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h4 className="font-bold text-deep-navy mb-3">사이드 연결</h4>
+                <div className="space-y-2 text-sm">
+                  <div><strong>HDMI IN:</strong> <span className="text-gray-700">3개</span></div>
+                  <div><strong>USB 터치:</strong> <span className="text-gray-700">3개</span></div>
+                  <div><strong>DP:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>TYPE C IN:</strong> <span className="text-gray-700">1개</span></div>
+                  <div><strong>USB 3.0:</strong> <span className="text-gray-700">3개</span></div>
+                  <div><strong>TF 카드:</strong> <span className="text-gray-700">1개</span></div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 시스템 사양 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-microchip text-vibrant-orange"></i>
+              시스템 사양 (Riotouch Central)
+            </h3>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div><strong className="text-deep-navy">칩셋:</strong> <span className="text-gray-700">Rockchip RK3588</span></div>
+                <div><strong className="text-deep-navy">CPU:</strong> <span className="text-gray-700">쿼드코어 Cortex-A76 + 쿼드코어 Cortex-A55 (최대 2.4GHz)</span></div>
+                <div><strong className="text-deep-navy">GPU:</strong> <span className="text-gray-700">Mali-G610 MC4</span></div>
+                <div><strong className="text-deep-navy">RAM:</strong> <span className="text-gray-700">16GB DDR4</span></div>
+                <div><strong className="text-deep-navy">저장공간:</strong> <span className="text-gray-700">256GB Flash</span></div>
+                <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0</span></div>
+                <div><strong className="text-deep-navy">Wi-Fi:</strong> <span className="text-gray-700">IEEE 802.11a/b/g/n/ac/ax (Wi-Fi 6), 2.4/5GHz</span></div>
+                <div><strong className="text-deep-navy">블루투스:</strong> <span className="text-gray-700">5.2</span></div>
+                <div><strong className="text-deep-navy">Windows OPS 슬롯:</strong> <span className="text-gray-700">80핀 OPS 슬롯</span></div>
+                <div><strong className="text-deep-navy">지원 OS:</strong> <span className="text-gray-700">Windows, Mac, Linux, Chrome OS</span></div>
+                <div><strong className="text-deep-navy">OTA 업데이트:</strong> <span className="text-gray-700">지원</span></div>
+                <div><strong className="text-deep-navy">센서:</strong> <span className="text-gray-700">광 센서, 온도/습도/공기질 3-in-One, NFC 리더/라이터, 지문 모듈</span></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 일반 정보 & 환경 조건 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="grid md:grid-cols-2 gap-6"
+          >
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-deep-navy mb-4 flex items-center gap-2">
+                <i className="fa-solid fa-info-circle text-vibrant-orange"></i>
+                일반 정보
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div><strong className="text-deep-navy">순중량:</strong> <span className="text-gray-700">45kg (±2kg)</span></div>
+                <div><strong className="text-deep-navy">총중량:</strong> <span className="text-gray-700">55kg (±2kg)</span></div>
+                <div><strong className="text-deep-navy">화면 크기:</strong> <span className="text-gray-700">1470.9 × 97.5 × 897.5mm (W×D×H)</span></div>
+                <div><strong className="text-deep-navy">패키지 치수:</strong> <span className="text-gray-700">1622 × 190 × 1038mm</span></div>
+                <div><strong className="text-deep-navy">VESA 표준:</strong> <span className="text-gray-700">600×400mm</span></div>
+                <div><strong className="text-deep-navy">전원:</strong> <span className="text-gray-700">100-240V (50/60Hz)</span></div>
+                <div><strong className="text-deep-navy">대기 전력:</strong> <span className="text-gray-700">≤0.5W</span></div>
+                <div><strong className="text-deep-navy">인증:</strong> <span className="text-gray-700">CE (EMC+LVD), RoHS, FCC, CCC</span></div>
+                <div><strong className="text-deep-navy">보증:</strong> <span className="text-gray-700">전체 제품 1년, 터치 부품 3년 (연장 옵션 가능)</span></div>
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-deep-navy mb-4 flex items-center gap-2">
+                <i className="fa-solid fa-thermometer-half text-vibrant-orange"></i>
+                환경 조건 & 액세서리
+              </h3>
+              <div className="space-y-4 text-sm">
+                <div>
+                  <h4 className="font-bold text-deep-navy mb-2">환경 조건</h4>
+                  <div className="space-y-1 text-gray-700">
+                    <div><strong>작동 온도:</strong> 0°C ~ 40°C (32°F ~ 100°F)</div>
+                    <div><strong>보관 온도:</strong> -20°C ~ 60°C (-4°F ~ 140°F)</div>
+                    <div><strong>습도:</strong> 10% ~ 90%</div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-deep-navy mb-2">기본 액세서리</h4>
+                  <div className="space-y-1 text-gray-700">
+                    <div>• Wi-Fi 안테나 × 2개</div>
+                    <div>• 잉크 펜 × 2개</div>
+                    <div>• 리모컨 × 1개</div>
+                    <div>• 전원 코드 (1.5m) × 1개</div>
+                    <div>• HDMI 케이블 (1.5m) × 1개</div>
+                    <div>• USB 터치 케이블 (1.5m) × 1개</div>
+                    <div>• 벽걸이 키트</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Pricing Table - 가격표 */}
+      <section id="pricing-table" className="pt-24 pb-20 bg-light-gray px-4 snap-start">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">PRICING</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">전자칠판 가격표</h2>
+            <p className="text-gray-600 text-base">사이즈별 현금/카드 결제 및 할부 상품 안내</p>
+          </motion.div>
+
+          {/* 가격표 - 65인치, 75인치, 86인치 */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8 pt-4">
+            {[
+              {
+                size: '65',
+                label: '65인치',
+                regularPrice: 2750000,
+                prices: {
+                  cash: { wall: 2250000, stand: 2500000 },
+                  installment: {
+                    '24': { wall: 117700, stand: 130800 },
+                    '36': { wall: 82500, stand: 91600 },
+                    '48': { wall: 67100, stand: 74500 },
+                    '60': { wall: 58300, stand: 64700 },
+                  },
+                },
+              },
+              {
+                size: '75',
+                label: '75인치',
+                recommended: true,
+                regularPrice: 3200000,
+                prices: {
+                  cash: { wall: 2750000, stand: 3000000 },
+                  installment: {
+                    '24': { wall: 143000, stand: 156200 },
+                    '36': { wall: 101200, stand: 110400 },
+                    '48': { wall: 82500, stand: 90000 },
+                    '60': { wall: 71500, stand: 78000 },
+                  },
+                },
+              },
+              {
+                size: '86',
+                label: '86인치',
+                regularPrice: 4000000,
+                prices: {
+                  cash: { wall: 3450000, stand: 3800000 },
+                  installment: {
+                    '24': { wall: 179300, stand: 197500 },
+                    '36': { wall: 126500, stand: 139400 },
+                    '48': { wall: 102300, stand: 112800 },
+                    '60': { wall: 89100, stand: 98200 },
+                  },
+                },
+              },
+            ].map((product, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`bg-white rounded-2xl shadow-lg border-2 relative ${
+                  product.recommended ? 'border-vibrant-orange md:-translate-y-4' : 'border-gray-200'
+                }`}
+              >
+                {product.recommended && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-vibrant-orange text-white text-xs font-bold px-4 py-1 rounded-full z-10 whitespace-nowrap">
+                    BEST CHOICE
+                  </div>
+                )}
+                <div className="p-6 pt-8">
+                  <div className="text-center mb-6">
+                    <h3 className="text-2xl font-black text-deep-navy mb-2">{product.label}</h3>
+                    <p className="text-gray-500 text-sm">전자칠판</p>
+                    {product.regularPrice && (
+                      <div className="mt-2">
+                        <p className="text-xs text-gray-400 line-through">일반가 {product.regularPrice.toLocaleString()}원</p>
+                        <p className="text-xs text-vibrant-orange font-bold mt-1">
+                          → 공구가 {product.prices.cash.wall.toLocaleString()}원
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 현금/카드 결제 */}
+                  <div className="mb-6 pb-6 border-b border-gray-200">
+                    <h4 className="text-sm font-bold text-deep-navy mb-3 flex items-center gap-2">
+                      <i className="fa-solid fa-money-bill-wave text-vibrant-orange"></i>
+                      현금 or 신용카드
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">벽걸이</span>
+                        <span className="font-bold text-deep-navy">
+                          {product.prices.cash.wall.toLocaleString()}원
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">이동형 스탠드</span>
+                        <span className="font-bold text-deep-navy">
+                          {product.prices.cash.stand.toLocaleString()}원
+                        </span>
+                      </div>
+                      {product.regularPrice && (
+                        <div className="mt-2 pt-2 border-t border-gray-100">
+                          <p className="text-xs text-vibrant-orange font-semibold">
+                            최대 {(product.regularPrice - product.prices.cash.wall).toLocaleString()}원 할인
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 할부 결제 */}
+                  <div>
+                    <h4 className="text-sm font-bold text-deep-navy mb-3 flex items-center gap-2">
+                      <i className="fa-solid fa-credit-card text-vibrant-orange"></i>
+                      금융사 할부 (월 납입금)
+                    </h4>
+                    <div className="space-y-3">
+                      {['24', '36', '48', '60'].map((months) => (
+                        <div key={months} className="bg-gray-50 rounded-lg p-3">
+                          <div className="text-xs font-bold text-vibrant-orange mb-2">
+                            {months}개월
+                          </div>
+                          <div className="space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">벽걸이</span>
+                              <span className="font-bold text-deep-navy">
+                                {product.prices.installment[months].wall.toLocaleString()}원
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">이동형 스탠드</span>
+                              <span className="font-bold text-deep-navy">
+                                {product.prices.installment[months].stand.toLocaleString()}원
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 안내 사항 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-white rounded-xl p-6 border border-gray-200"
+          >
+            <div className="space-y-2 text-sm text-gray-600">
+              <p className="flex items-start gap-2">
+                <i className="fa-solid fa-info-circle text-vibrant-orange mt-1"></i>
+                <span>할부 금융 프로그램 진행 시 추가 서류가 필요합니다.</span>
+              </p>
+              <p className="flex items-start gap-2">
+                <i className="fa-solid fa-check-circle text-vibrant-orange mt-1"></i>
+                <span>할부 완납 시 소유권이 구매자에게 이전됩니다.</span>
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -887,8 +1343,48 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* 공구 가격 섹션 */}
+      <section id="pricing" className="pt-24 pb-12 bg-gradient-to-br from-vibrant-orange/5 to-white px-4 snap-start">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">GROUP PURCHASE PRICE</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">공동구매 특별가</h2>
+            <p className="text-gray-600 text-base">(1월 26일 월요일 ~ 2월 8일 일요일 마감)</p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white border-2 border-vibrant-orange rounded-3xl p-8 md:p-12 shadow-xl text-center"
+          >
+            <div className="mb-4">
+              <p className="text-gray-500 text-sm mb-2">정가 (75인치)</p>
+              <p className="text-gray-400 line-through text-xl">3,200,000원</p>
+            </div>
+            <div className="mb-6">
+              <p className="text-vibrant-orange font-bold text-sm mb-2">공동구매 특별가 (75인치 벽걸이)</p>
+              <p className="text-deep-navy font-black text-4xl md:text-5xl mb-2">2,750,000원</p>
+              <p className="text-vibrant-orange font-bold text-lg">정가 대비 450,000원 할인 (14% 할인)</p>
+            </div>
+            <div className="bg-vibrant-orange/10 rounded-lg p-4">
+              <p className="text-deep-navy font-semibold text-sm">
+                <i className="fa-solid fa-info-circle text-vibrant-orange mr-2"></i>
+                이 가격은 공동구매 기간 동안만 적용되는 특별 혜택입니다
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Benefits & Pricing */}
-      <section id="price-benefit" className="pt-24 pb-20 bg-white px-4 snap-start">
+      <section id="price-benefit" className="pt-12 pb-20 bg-white px-4 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -899,7 +1395,7 @@ const LandingPage = () => {
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">LIMITED OFFER</span>
             <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">SMMT 런칭 기념, 단 2주간의 혜택</h2>
-            <p className="text-gray-600 text-base">(~00월 00일 마감)</p>
+            <p className="text-gray-600 text-base">(1월 26일 월요일 ~ 2월 8일 일요일 마감)</p>
           </motion.div>
 
           <motion.div
@@ -919,12 +1415,7 @@ const LandingPage = () => {
                   {
                     icon: <i className="fa-solid fa-check-circle text-xl"></i>,
                     title: '공동구매 특별가',
-                    desc: '(확정된 가격)원 (정가 대비 OO% 할인)',
-                  },
-                  {
-                    icon: <i className="fa-solid fa-tv text-xl"></i>,
-                    title: '86인치 업그레이드',
-                    desc: '수학 수업에 최적화된 대화면',
+                    desc: '2,750,000원 (정가 3,200,000원 대비 450,000원 할인)',
                   },
                   {
                     icon: <i className="fa-solid fa-truck-fast text-xl"></i>,
@@ -932,14 +1423,9 @@ const LandingPage = () => {
                     desc: '지방, 계단 양중비(사다리차)까지 100% 지원',
                   },
                   {
-                    icon: <i className="fa-solid fa-stand text-xl"></i>,
-                    title: '스탠드 거치대 무료 증정',
-                    desc: '추가 비용 없이 스탠드형 설치 지원',
-                  },
-                  {
                     icon: <i className="fa-solid fa-credit-card text-xl"></i>,
-                    title: '최대 OO개월 무이자 할부 지원',
-                    desc: '월 커피값 수준으로 부담 없이 이용 가능',
+                    title: '최대 60개월 무이자 할부 지원',
+                    desc: '',
                   },
                 ].map((benefit, index) => (
                   <motion.li
@@ -957,9 +1443,11 @@ const LandingPage = () => {
                       <strong className="block text-lg md:text-xl font-bold text-deep-navy mb-1.5">
                         {benefit.title}
                       </strong>
-                      <span className="text-gray-600 text-sm md:text-base leading-relaxed block">
-                        {benefit.desc}
-                      </span>
+                      {benefit.desc && (
+                        <span className="text-gray-600 text-sm md:text-base leading-relaxed block">
+                          {benefit.desc}
+                        </span>
+                      )}
                     </div>
                   </motion.li>
                 ))}
@@ -979,7 +1467,7 @@ const LandingPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-10"
           >
-            <h2 className="text-3xl font-bold text-deep-navy mb-2">공동구매 문의</h2>
+            <h2 className="text-3xl font-bold text-deep-navy mb-2">공동구매 주문</h2>
             <p className="text-gray-500">신청서를 남겨주시면 전문 상담원이 24시간 내에 해피콜을 드립니다.</p>
           </motion.div>
 
@@ -1055,22 +1543,88 @@ const LandingPage = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="inquiry_type">
-                문의 유형 <span className="text-vibrant-orange">*</span>
+              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="size">
+                인치 종류 <span className="text-vibrant-orange">*</span>
               </label>
               <select
-                id="inquiry_type"
-                name="inquiry_type"
+                id="size"
+                name="size"
                 required
+                value={selectedSize}
+                onChange={(e) => setSelectedSize(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange bg-white"
               >
-                <option value="quote">공동구매 문의</option>
-                <option value="webinar">웨비나 알림 신청</option>
+                <option value="">인치를 선택해주세요</option>
+                <option value="65">65인치</option>
+                <option value="75">75인치</option>
+                <option value="86">86인치</option>
               </select>
-              <p className="text-xs text-gray-500 mt-1">
-                웨비나 알림 신청 시 일정 확정 후 문자로 안내해드립니다
-              </p>
             </div>
+            <div>
+              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="mount_type">
+                설치 방식 <span className="text-vibrant-orange">*</span>
+              </label>
+              <select
+                id="mount_type"
+                name="mount_type"
+                required
+                value={selectedMountType}
+                onChange={(e) => setSelectedMountType(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange bg-white"
+              >
+                <option value="wall">벽걸이</option>
+                <option value="stand">이동형 스탠드</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="quantity">
+                구매 수량 <span className="text-vibrant-orange">*</span>
+              </label>
+              <select
+                id="quantity"
+                name="quantity"
+                required
+                value={selectedQuantity}
+                onChange={(e) => setSelectedQuantity(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange bg-white"
+              >
+                <option value="">수량을 선택해주세요</option>
+                <option value="1">1대</option>
+                <option value="2">2대</option>
+                <option value="3">3대</option>
+                <option value="4">4대</option>
+                <option value="5">5대</option>
+                <option value="6">6대</option>
+                <option value="7">7대</option>
+                <option value="8">8대</option>
+                <option value="9">9대</option>
+                <option value="10">10대</option>
+              </select>
+            </div>
+
+            {/* 가격 표시 */}
+            {selectedSize && selectedQuantity && (
+              <div className="bg-vibrant-orange/10 border-2 border-vibrant-orange rounded-xl p-6">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-semibold text-deep-navy">단가:</span>
+                  <span className="text-lg font-bold text-deep-navy">
+                    {priceData[selectedSize]?.[selectedMountType]?.toLocaleString()}원
+                  </span>
+                </div>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-semibold text-deep-navy">수량:</span>
+                  <span className="text-lg font-bold text-deep-navy">{selectedQuantity}대</span>
+                </div>
+                <div className="border-t border-vibrant-orange/30 pt-3 mt-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-base font-bold text-deep-navy">총 주문 금액:</span>
+                    <span className="text-2xl font-black text-vibrant-orange">
+                      {calculateTotalPrice().toLocaleString()}원
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Privacy Policy Consent */}
             <div className="flex items-start gap-3 mt-4">
@@ -1091,7 +1645,7 @@ const LandingPage = () => {
               type="submit"
               className="w-full bg-vibrant-orange text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-orange-600 transition mt-4"
             >
-              문의하기
+              주문하기
             </button>
             <p className="text-xs text-center text-gray-400 mt-2">
               * 상담 신청은 구매 확정이 아니며, 비용이 발생하지 않습니다.
@@ -1181,7 +1735,7 @@ const LandingPage = () => {
               <h3 className="text-2xl font-bold text-white mb-4">라이브 방송 특별 혜택</h3>
               <ul className="space-y-3">
                 {[
-                  '라이브 방송 중 신청 시 추가 할인 혜택',
+                  '라이브 방송중 신청시 스타벅스 쿠폰 5만원권 지급',
                   '실시간 Q&A로 궁금증 해결',
                   '생생한 판서 영상 직접 확인',
                   '한정 수량 특가 상품 선착순 제공',
@@ -1207,7 +1761,7 @@ const LandingPage = () => {
               href="#consult-form"
               className="inline-block bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-orange-600 transition transform hover:scale-105"
             >
-              웨비나 알림 신청하기
+              웨비나 입장하기
             </a>
           </motion.div>
         </div>
@@ -1329,7 +1883,7 @@ const LandingPage = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <p className="mb-4 font-bold text-white text-lg">SMMT × NEXO</p>
-            <p className="text-vibrant-orange/80 text-xs mb-2">프리미엄 리퍼비시 IT 기기 전문 판매</p>
+            <p className="text-vibrant-orange/80 text-xs mb-2">프리미엄 전자칠판 전문 판매</p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6 mb-8 text-left">
