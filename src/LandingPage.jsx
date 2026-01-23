@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import CountdownTimer from './CountdownTimer';
 
 const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeFAQ, setActiveFAQ] = useState(null);
   const [activeFAQTab, setActiveFAQTab] = useState('기능사용');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [flippedCards, setFlippedCards] = useState({});
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95]);
 
@@ -17,8 +19,55 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 키보드 화살표로 섹션 간 이동 (웨비나 진행용)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        const sections = document.querySelectorAll('section');
+        const currentSection = Array.from(sections).find(
+          (section) => {
+            const rect = section.getBoundingClientRect();
+            return rect.top >= 0 && rect.top < window.innerHeight / 2;
+          }
+        );
+        if (currentSection) {
+          const currentIndex = Array.from(sections).indexOf(currentSection);
+          if (currentIndex < sections.length - 1) {
+            sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        const sections = document.querySelectorAll('section');
+        const currentSection = Array.from(sections).find(
+          (section) => {
+            const rect = section.getBoundingClientRect();
+            return rect.top >= 0 && rect.top < window.innerHeight / 2;
+          }
+        );
+        if (currentSection) {
+          const currentIndex = Array.from(sections).indexOf(currentSection);
+          if (currentIndex > 0) {
+            sections[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const toggleFAQ = (index) => {
     setActiveFAQ(activeFAQ === index ? null : index);
+  };
+
+  const toggleCardFlip = (index) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
   };
 
   const handleFormSubmit = async (e) => {
@@ -44,7 +93,12 @@ const LandingPage = () => {
       });
       
       if (response.ok) {
-        alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        const inquiryType = formData.get('inquiry_type');
+        if (inquiryType === 'webinar') {
+          alert('웨비나 알림 신청이 완료되었습니다. 일정 확정 시 문자로 안내해드리겠습니다.');
+        } else {
+          alert('상담 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        }
         form.reset();
       } else {
         throw new Error('Network response was not ok');
@@ -57,19 +111,22 @@ const LandingPage = () => {
 
   const painPoints = [
     {
-      icon: <i className="fa-solid fa-pen-slash"></i>,
+      icon: <i className="fa-solid fa-pen-nib"></i>,
       title: '미끄러운 판서감',
       description: '"분필 끝의 마찰력이 없어서 글씨가 날아갑니다. 정교한 수식 판서가 불가능합니다."',
+      image: '/images/slippery-writing.png',
     },
     {
       icon: <i className="fa-solid fa-chart-line"></i>,
       title: '복잡한 그래프',
       description: '"함수 그래프 하나 그리는데 메뉴를 3번이나 눌러야 합니다. 수업 맥락이 끊깁니다."',
+      image: '/images/complex-graph.png',
     },
     {
       icon: <i className="fa-solid fa-triangle-exclamation"></i>,
       title: '잦은 오류와 렉',
       description: '"한참 열강 중에 렉이 걸리면 아이들 집중력이 깨지고 수업 흐름이 망가집니다."',
+      image: '/images/error-lag.png',
     },
   ];
 
@@ -181,7 +238,7 @@ const LandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 scroll-smooth" style={{ scrollBehavior: 'smooth', scrollPaddingTop: '80px' }}>
       {/* Header - Sticky */}
       <motion.header
         style={{ opacity: headerOpacity }}
@@ -224,15 +281,24 @@ const LandingPage = () => {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* 배경 이미지 - 어두운 교실에서 전자칠판의 빛이 은은하게 퍼지는 이미지 */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 snap-start">
+        {/* 비디오 배경 - 이봉우 선생님의 판서 영상 */}
         <div className="absolute inset-0 z-0">
-          <div
-            className="w-full h-full bg-cover bg-center"
-            style={{
-              backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')`,
-            }}
-          />
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              className="absolute top-1/2 left-1/2 w-[200%] h-[200%] -translate-x-1/2 -translate-y-1/2"
+              src="https://www.youtube.com/embed/Ofl5GWPY2lQ?autoplay=1&loop=1&playlist=Ofl5GWPY2lQ&mute=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{
+                pointerEvents: 'none',
+                minWidth: '100%',
+                minHeight: '100%',
+              }}
+            />
+          </div>
+          {/* 어두운 오버레이 */}
+          <div className="absolute inset-0 bg-gradient-to-b from-deep-navy/80 via-deep-navy/70 to-deep-navy/80"></div>
         </div>
 
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
@@ -241,6 +307,17 @@ const LandingPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* 카운트다운 타이머 */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="mb-6"
+            >
+              <p className="text-white text-sm md:text-base mb-3 font-semibold">공동구매 마감까지</p>
+              <CountdownTimer endDate="2025-02-08T23:59:59" />
+            </motion.div>
+
             <motion.span
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -260,28 +337,20 @@ const LandingPage = () => {
               <br />
               못 쓰겠다고 생각하십니까?"
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
-              대한민국 수학 강사 커뮤니티 SMMT가 직접 검증하고 선택한 유일한 전자칠판.
+            <p className="text-gray-200 text-lg md:text-xl mb-10 leading-relaxed">
+              SMMT 4,000명 원장님이 검증한, 오직 <strong className="text-white">'수학'</strong>을 위해 태어난 넥소(NEXO).
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center">
-              <motion.a
-                href="#product-specs"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-deep-navy px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-gray-100 transition flex items-center justify-center gap-2"
-              >
-                <i className="fa-solid fa-list-check text-vibrant-orange"></i> 제품 스펙 확인하기
-              </motion.a>
               <motion.a
                 href="#consult-form"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-orange-600 transition relative"
+                className="bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-orange-600 transition relative"
                 style={{
                   animation: 'pulse-animation 2s infinite',
                 }}
               >
-                공동구매 견적받기
+                웨비나 무료 신청하기
               </motion.a>
             </div>
           </motion.div>
@@ -289,7 +358,7 @@ const LandingPage = () => {
       </section>
 
       {/* Problem Section */}
-      <section className="py-20 bg-white px-4">
+      <section className="pt-24 pb-20 bg-white px-4 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -298,7 +367,7 @@ const LandingPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold text-deep-navy mb-4">
+            <h2 className="text-3xl font-bold text-deep-navy mb-4 scroll-mt-24">
               왜 수학 선생님들은 전자칠판을 싫어했을까요?
             </h2>
             <p className="text-gray-500">우리는 여러분의 불신을 이해합니다. 기존 제품들은 수학 수업에 맞지 않았습니다.</p>
@@ -311,13 +380,56 @@ const LandingPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300"
+                className="relative h-64 cursor-pointer"
+                style={{ perspective: '1000px' }}
+                onClick={() => toggleCardFlip(index)}
               >
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4 text-red-500 text-xl">
-                  {point.icon}
-                </div>
-                <h3 className="text-xl font-bold text-deep-navy mb-2">{point.title}</h3>
-                <p className="text-gray-600 text-sm">{point.description}</p>
+                <motion.div
+                  animate={{ rotateY: flippedCards[index] ? 180 : 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative w-full h-full"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  {/* 앞면 (카드) */}
+                  <div
+                    className="absolute inset-0 bg-gray-50 p-8 rounded-2xl border border-gray-100 hover:shadow-xl transition duration-300 backface-hidden"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                  >
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4 text-red-500 text-xl">
+                      {point.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-deep-navy mb-2">{point.title}</h3>
+                    <p className="text-gray-600 text-sm">{point.description}</p>
+                    <div className="absolute bottom-4 right-4 text-xs text-gray-400">
+                      <i className="fa-solid fa-hand-pointer mr-1"></i> 클릭하여 확인
+                    </div>
+                  </div>
+
+                  {/* 뒷면 (이미지) */}
+                  <div
+                    className="absolute inset-0 bg-white rounded-2xl border-2 border-vibrant-orange overflow-hidden backface-hidden"
+                    style={{
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden',
+                      transform: 'rotateY(180deg)',
+                    }}
+                  >
+                    <img
+                      src={point.image}
+                      alt={point.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+                      <div className="p-4 text-white">
+                        <h4 className="font-bold text-lg mb-1">{point.title}</h4>
+                        <p className="text-sm text-gray-200">문제 상황 예시</p>
+                      </div>
+                    </div>
+                    <div className="absolute top-4 right-4 text-white/80">
+                      <i className="fa-solid fa-rotate-left"></i>
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>
@@ -325,7 +437,7 @@ const LandingPage = () => {
       </section>
 
       {/* Analog vs Digital Comparison */}
-      <section className="py-20 bg-slate-100 px-4">
+      <section className="pt-24 pb-20 bg-slate-100 px-4 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -392,8 +504,127 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Tech Showcase - 기능 시연 */}
+      <section className="pt-24 pb-20 bg-white px-4 snap-start">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">TECH SHOWCASE</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3">
+              넥소만의 해결책, 유마인드 소프트웨어
+            </h2>
+            <p className="text-gray-600 mt-3">수학 수업에 최적화된 기능을 직접 확인하세요</p>
+          </motion.div>
+
+          {/* 기능 1: 인피니티 캔버스 */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid md:grid-cols-2 gap-8 items-center mb-20"
+          >
+            <div className="order-2 md:order-1">
+              <div className="bg-gray-100 rounded-2xl p-4 aspect-video overflow-hidden">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/nKYE16PydzQ?autoplay=1&loop=1&playlist=nKYE16PydzQ&mute=1&controls=1&modestbranding=1&rel=0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="무한 판서 데모"
+                />
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="text-5xl mb-4">📜</div>
+              <h3 className="text-2xl md:text-3xl font-bold text-deep-navy mb-4">
+                인피니티 캔버스
+                <br />
+                <span className="text-vibrant-orange">(무한 판서)</span>
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                지우지 마세요. 위로 밀어 올리세요.
+                <br />
+                긴 풀이 과정도 끊김 없이 이어집니다.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* 기능 2: 1초 그래프 변환 */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid md:grid-cols-2 gap-8 items-center mb-20"
+          >
+            <div>
+              <div className="text-5xl mb-4">📊</div>
+              <h3 className="text-2xl md:text-3xl font-bold text-deep-navy mb-4">
+                1초 그래프 변환
+                <br />
+                <span className="text-vibrant-orange">유마인드 AI</span>
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                도형과 함수 그래프, 1초면 충분합니다.
+                <br />
+                넥소만의 '유마인드' 소프트웨어가 수학 수업을 보조합니다.
+              </p>
+            </div>
+            <div>
+              <div className="bg-gray-100 rounded-2xl p-4 aspect-video overflow-hidden">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/Ofl5GWPY2lQ?autoplay=1&loop=1&playlist=Ofl5GWPY2lQ&mute=1&controls=1&modestbranding=1&rel=0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="그래프 변환 데모"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 기능 3: 수업 녹화 및 QR 공유 */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid md:grid-cols-2 gap-8 items-center"
+          >
+            <div className="order-2 md:order-1">
+              <div className="bg-gray-100 rounded-2xl p-4 aspect-video overflow-hidden">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/Ci1uy-5eEJg?autoplay=1&loop=1&playlist=Ci1uy-5eEJg&mute=1&controls=1&modestbranding=1&rel=0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="녹화 및 QR 공유"
+                />
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="text-5xl mb-4">📹</div>
+              <h3 className="text-2xl md:text-3xl font-bold text-deep-navy mb-4">
+                수업 녹화 및 QR 공유
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                별도 장비 없이 수업 자동 녹화.
+                <br />
+                결석생에게 QR코드로 즉시 공유하세요.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Product Specs */}
-      <section id="product-specs" className="py-20 bg-white px-4 scroll-mt-20">
+      <section id="product-specs" className="pt-24 pb-20 bg-light-gray px-4 scroll-mt-24 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -443,7 +674,7 @@ const LandingPage = () => {
       </section>
 
       {/* Size Guide */}
-      <section id="size-guide" className="py-20 bg-gray-50 px-4 scroll-mt-20">
+      <section id="size-guide" className="pt-24 pb-20 bg-gray-50 px-4 scroll-mt-24 snap-start">
         <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -507,8 +738,79 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Social Proof - 이봉우 대표 추천사 */}
+      <section className="pt-24 pb-20 bg-deep-navy px-4 snap-start">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <div className="mb-8">
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center text-4xl">
+                <i className="fa-solid fa-quote-left text-vibrant-orange"></i>
+              </div>
+              <blockquote className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-relaxed mb-6">
+                "직접 써보지 않은 제품은 추천하지 않습니다. 넥소는 제가 연구실에서 매일 테스트하며 수업에 활용하고 있는 제품입니다."
+              </blockquote>
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
+                  <i className="fa-solid fa-user text-white text-xl"></i>
+                </div>
+                <div className="text-left">
+                  <p className="text-white font-bold text-lg">SMMT 대표</p>
+                  <p className="text-vibrant-orange font-semibold">이봉우 (봉샘)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 커뮤니티 댓글 캡처 슬라이더 */}
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                {
+                  name: '원장님 1',
+                  review: '"기존 전자칠판과는 차원이 달라요. 판서감이 정말 자연스럽고, 함수 그래프도 한 번에 그려집니다. 학생들 반응도 좋고요!"',
+                },
+                {
+                  name: '원장님 2',
+                  review: '"무한 판서 기능이 최고예요. 긴 풀이 과정도 끊김 없이 이어갈 수 있어서 수업 효율이 엄청나게 올라갔습니다."',
+                },
+                {
+                  name: '원장님 3',
+                  review: '"QR코드로 수업 내용을 바로 공유할 수 있어서 결석생 관리가 훨씬 쉬워졌어요. 설치 후 한 달 만에 학원생이 20% 늘었습니다!"',
+                },
+              ].map((review, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="bg-white/5 rounded-lg p-4 border border-white/10"
+                >
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-vibrant-orange/20 flex items-center justify-center">
+                      <i className="fa-solid fa-user text-vibrant-orange"></i>
+                    </div>
+                    <div>
+                      <p className="text-white font-semibold text-sm">{review.name}</p>
+                      <p className="text-gray-400 text-xs">SMMT 회원</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {review.review}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
-      <section className="py-20 bg-white px-4">
+      <section className="pt-24 pb-20 bg-white px-4 snap-start">
         <div className="max-w-3xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -586,7 +888,7 @@ const LandingPage = () => {
       </section>
 
       {/* Benefits & Pricing */}
-      <section id="price-benefit" className="py-20 bg-white px-4">
+      <section id="price-benefit" className="pt-24 pb-20 bg-white px-4 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -596,8 +898,8 @@ const LandingPage = () => {
             className="text-center mb-12"
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">LIMITED OFFER</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">SMMT × NEXO 단독 혜택</h2>
-            <p className="text-gray-600 text-base">단 2주간, 오직 이 페이지에서만 가능한 조건입니다.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">SMMT 런칭 기념, 단 2주간의 혜택</h2>
+            <p className="text-gray-600 text-base">(~00월 00일 마감)</p>
           </motion.div>
 
           <motion.div
@@ -616,23 +918,28 @@ const LandingPage = () => {
                 {[
                   {
                     icon: <i className="fa-solid fa-check-circle text-xl"></i>,
-                    title: '공동구매 특별 할인',
-                    desc: '정가 대비 최대 OO% 할인 혜택',
+                    title: '공동구매 특별가',
+                    desc: '(확정된 가격)원 (정가 대비 OO% 할인)',
+                  },
+                  {
+                    icon: <i className="fa-solid fa-tv text-xl"></i>,
+                    title: '86인치 업그레이드',
+                    desc: '수학 수업에 최적화된 대화면',
                   },
                   {
                     icon: <i className="fa-solid fa-truck-fast text-xl"></i>,
-                    title: '설치비 & 배송비 전액 무료',
+                    title: '설치비 및 배송비 무료',
                     desc: '지방, 계단 양중비(사다리차)까지 100% 지원',
                   },
                   {
-                    icon: <i className="fa-solid fa-chalkboard-user text-xl"></i>,
-                    title: '전문가 현장 방문 교육',
-                    desc: '설치 당일 1시간, 마스터할 때까지 교육',
+                    icon: <i className="fa-solid fa-stand text-xl"></i>,
+                    title: '스탠드 거치대 무료 증정',
+                    desc: '추가 비용 없이 스탠드형 설치 지원',
                   },
                   {
-                    icon: <i className="fa-solid fa-video text-xl"></i>,
-                    title: '[보너스] 이봉우 선생님 VOD',
-                    desc: '전자칠판 200% 활용 수업 노하우 제공',
+                    icon: <i className="fa-solid fa-credit-card text-xl"></i>,
+                    title: '최대 OO개월 무이자 할부 지원',
+                    desc: '월 커피값 수준으로 부담 없이 이용 가능',
                   },
                 ].map((benefit, index) => (
                   <motion.li
@@ -663,7 +970,7 @@ const LandingPage = () => {
       </section>
 
       {/* Consultation Form */}
-      <section id="consult-form" className="py-20 bg-white px-4">
+      <section id="consult-form" className="pt-24 pb-20 bg-white px-4 snap-start">
         <div className="max-w-xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -672,7 +979,7 @@ const LandingPage = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-10"
           >
-            <h2 className="text-3xl font-bold text-deep-navy mb-2">공동구매 신청</h2>
+            <h2 className="text-3xl font-bold text-deep-navy mb-2">공동구매 문의</h2>
             <p className="text-gray-500">신청서를 남겨주시면 전문 상담원이 24시간 내에 해피콜을 드립니다.</p>
           </motion.div>
 
@@ -747,7 +1054,23 @@ const LandingPage = () => {
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange"
               />
             </div>
-            <input type="hidden" name="inquiry_type" value="quote" />
+            <div>
+              <label className="block text-sm font-bold text-deep-navy mb-1" htmlFor="inquiry_type">
+                문의 유형 <span className="text-vibrant-orange">*</span>
+              </label>
+              <select
+                id="inquiry_type"
+                name="inquiry_type"
+                required
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-vibrant-orange bg-white"
+              >
+                <option value="quote">공동구매 문의</option>
+                <option value="webinar">웨비나 알림 신청</option>
+              </select>
+              <p className="text-xs text-gray-500 mt-1">
+                웨비나 알림 신청 시 일정 확정 후 문자로 안내해드립니다
+              </p>
+            </div>
 
             {/* Privacy Policy Consent */}
             <div className="flex items-start gap-3 mt-4">
@@ -768,12 +1091,236 @@ const LandingPage = () => {
               type="submit"
               className="w-full bg-vibrant-orange text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-orange-600 transition mt-4"
             >
-              공동구매 신청
+              문의하기
             </button>
             <p className="text-xs text-center text-gray-400 mt-2">
               * 상담 신청은 구매 확정이 아니며, 비용이 발생하지 않습니다.
             </p>
           </motion.form>
+        </div>
+      </section>
+
+      {/* Webinar & Live Broadcast Section */}
+      <section className="relative pt-24 pb-20 px-4 snap-start overflow-hidden">
+        {/* 비디오 배경 - 영상회의/웨비나 장면 */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+            poster="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&h=1080&fit=crop"
+          >
+            {/* public/videos/webinar-background.mp4 파일을 업로드하세요 */}
+            <source src="/videos/webinar-background.mp4" type="video/mp4" />
+            {/* 폴백 이미지 */}
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0, 51, 102, 0.85), rgba(0, 51, 102, 0.9)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1920&h=1080&fit=crop')`,
+              }}
+            />
+          </video>
+          {/* 어두운 오버레이 */}
+          <div className="absolute inset-0 bg-gradient-to-br from-deep-navy/85 via-deep-navy/80 to-deep-navy/85"></div>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase mb-4 inline-block">
+              LIVE BROADCAST
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+              라이브 방송에서만 공개되는 특별 혜택
+            </h2>
+            <p className="text-gray-300 text-lg">
+              웨비나를 통해 넥소 전자칠판의 모든 것을 직접 확인하세요
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* 웨비나 일정 안내 */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+            >
+              <div className="text-5xl mb-4">📅</div>
+              <h3 className="text-2xl font-bold text-white mb-4">웨비나 일정</h3>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                라이브 방송 일정이 확정되는 대로 공지해드립니다.
+                <br />
+                <span className="text-vibrant-orange font-semibold">곧 공개 예정</span>이니 많은 관심 부탁드립니다!
+              </p>
+              <div className="bg-vibrant-orange/20 border border-vibrant-orange/50 rounded-lg p-4">
+                <p className="text-white font-semibold text-sm">
+                  <i className="fa-solid fa-bell text-vibrant-orange mr-2"></i>
+                  알림 신청하시면 일정 확정 시 가장 먼저 알려드립니다
+                </p>
+              </div>
+            </motion.div>
+
+            {/* 라이브 방송 혜택 */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20"
+            >
+              <div className="text-5xl mb-4">🎁</div>
+              <h3 className="text-2xl font-bold text-white mb-4">라이브 방송 특별 혜택</h3>
+              <ul className="space-y-3">
+                {[
+                  '라이브 방송 중 신청 시 추가 할인 혜택',
+                  '실시간 Q&A로 궁금증 해결',
+                  '생생한 판서 영상 직접 확인',
+                  '한정 수량 특가 상품 선착순 제공',
+                ].map((benefit, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <i className="fa-solid fa-check-circle text-vibrant-orange mt-1"></i>
+                    <span className="text-gray-200">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* 웨비나 신청 CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-center"
+          >
+            <a
+              href="#consult-form"
+              className="inline-block bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-orange-600 transition transform hover:scale-105"
+            >
+              웨비나 알림 신청하기
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Google Form - 실제 신청 섹션 */}
+      <section id="google-form" className="pt-24 pb-20 bg-light-gray px-4 snap-start">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">OFFICIAL APPLICATION</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-4">
+              공동구매 공식 신청
+            </h2>
+            <p className="text-gray-600 text-lg">
+              상담을 통해 확정된 원장님께서는 아래 구글 폼을 통해 공식 신청해주세요
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              문의: <a href="mailto:nexo.korea.studio@gmail.com" className="text-vibrant-orange hover:underline">nexo.korea.studio@gmail.com</a>
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-2xl shadow-xl p-8 border-2 border-vibrant-orange"
+          >
+            <div className="text-center mb-6">
+              <div className="text-5xl mb-4">📝</div>
+              <h3 className="text-2xl font-bold text-deep-navy mb-2">
+                구글 폼으로 신청하기
+              </h3>
+              <p className="text-gray-600">
+                아래 버튼을 클릭하시면 공동구매 공식 신청 폼으로 이동합니다
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 mb-6">
+              <p className="text-sm text-gray-600 mb-4">
+                <strong className="text-deep-navy">신청 전 확인사항:</strong>
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-start gap-2">
+                  <i className="fa-solid fa-check text-vibrant-orange mt-1"></i>
+                  <span>상담을 통해 사이즈 및 옵션이 확정된 경우에만 신청해주세요</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fa-solid fa-check text-vibrant-orange mt-1"></i>
+                  <span>신청 후 담당자가 최종 확인 연락을 드립니다</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <i className="fa-solid fa-check text-vibrant-orange mt-1"></i>
+                  <span>문의사항은 nexo.korea.studio@gmail.com으로 연락주세요</span>
+                </li>
+              </ul>
+            </div>
+
+            <a
+              href="https://forms.gle/YOUR_GOOGLE_FORM_ID"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-deep-navy text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-slate-800 transition text-center"
+            >
+              <i className="fa-brands fa-google mr-2"></i>
+              구글 폼으로 공식 신청하기
+            </a>
+            <p className="text-xs text-center text-gray-500 mt-4">
+              * 구글 폼 링크는 실제 폼이 준비되면 업데이트됩니다
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* KakaoTalk Channel Section */}
+      <section className="py-16 bg-gradient-to-br from-yellow-400 to-yellow-500 px-4 snap-start">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="mb-6">
+              <div className="text-6xl mb-4">💬</div>
+              <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mb-4">
+                카카오톡으로 더 편하게 문의하세요
+              </h2>
+              <p className="text-deep-navy/80 text-lg mb-8">
+                실시간 상담과 빠른 답변이 필요하시다면<br />
+                카카오톡 채널로 바로 입장해주세요
+              </p>
+            </div>
+            <motion.a
+              href="https://pf.kakao.com/_your_kakao_channel"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center justify-center gap-3 bg-deep-navy text-yellow-400 px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:bg-slate-800 transition transform"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3c5.799 0 10.5 3.664 10.5 8.185 0 4.52-4.701 8.184-10.5 8.184a13.5 13.5 0 0 1-1.727-.11l-4.408 2.883c-.501.265-.678.236-.472-.413l.892-3.678c-2.88-1.46-4.785-3.99-4.785-6.866C1.5 6.665 6.201 3 12 3z"/>
+              </svg>
+              카카오톡 채널 입장하기
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
@@ -816,8 +1363,8 @@ const LandingPage = () => {
                 </li>
                 <li>
                   <span className="text-gray-500">이메일:</span>{' '}
-                  <a href="mailto:nexokorea@gmail.com" className="hover:text-white transition-colors">
-                    nexokorea@gmail.com
+                  <a href="mailto:nexo.korea.studio@gmail.com" className="hover:text-white transition-colors">
+                    nexo.korea.studio@gmail.com
                   </a>
                 </li>
               </ul>
@@ -843,24 +1390,38 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      {/* Floating Action Button (Mobile) */}
-      <motion.a
-        href="#consult-form"
-        className="fixed bottom-6 right-6 bg-vibrant-orange text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50 md:hidden"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        style={{
-          animation: 'pulse-animation 2s infinite',
-        }}
+      {/* Floating CTA Bar (Mobile) */}
+      <motion.div
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t-2 border-vibrant-orange shadow-2xl"
       >
-        <i className="fa-solid fa-phone"></i>
-      </motion.a>
+        <div className="flex items-center h-16">
+          <a
+            href="https://pf.kakao.com/_your_kakao_channel"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-2 bg-yellow-400 text-deep-navy font-bold h-full"
+          >
+            <i className="fa-solid fa-comment text-lg"></i>
+            <span className="text-sm">카카오톡 문의</span>
+          </a>
+          <a
+            href="tel:032-569-5771"
+            className="flex-1 flex items-center justify-center gap-2 bg-vibrant-orange text-white font-bold h-full"
+          >
+            <i className="fa-solid fa-phone text-lg"></i>
+            <span className="text-sm">전화 상담 예약</span>
+          </a>
+        </div>
+      </motion.div>
 
       <style>{`
         @keyframes pulse-animation {
-          0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
-          70% { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+          0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7); }
+          70% { box-shadow: 0 0 0 10px rgba(255, 102, 0, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
         }
       `}</style>
     </div>

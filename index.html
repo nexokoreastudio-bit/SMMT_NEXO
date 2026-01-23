@@ -7,9 +7,6 @@
     <meta name="description" content="SMMT x NEXO 공동구매 - 수학 선생님을 위한 전자칠판" />
     <title>SMMT × NEXO | 공동구매 랜딩 페이지</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
   </head>
   <body>
     <!-- Hidden form for Netlify Forms detection -->
@@ -18,7 +15,10 @@
       <input type="text" name="org_name" />
       <input type="tel" name="phone_number" />
       <input type="text" name="region" />
-      <input type="hidden" name="inquiry_type" value="quote" />
+      <select name="inquiry_type">
+        <option value="quote">공동구매 문의</option>
+        <option value="webinar">웨비나 알림 신청</option>
+      </select>
       <input type="checkbox" name="privacy_agree" />
       <input type="hidden" name="utm_source" />
       <input type="hidden" name="utm_campaign" />

@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        'deep-navy': '#0f172a',
-        'vibrant-orange': '#f97316',
+        'deep-navy': '#003366',
+        'vibrant-orange': '#FF6600',
         'light-gray': '#f8fafc',
       },
       fontFamily: {
-        'sans': ['Noto Sans KR', 'Montserrat', 'sans-serif'],
-        'display': ['Montserrat', 'Noto Sans KR', 'sans-serif'],
+        'sans': ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        'display': ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
       },
     },
   },
