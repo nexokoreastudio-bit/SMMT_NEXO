@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'deep-navy': '#003366',
+        'deep-navy': '#0f172a',
         'vibrant-orange': '#FF6600',
         'light-gray': '#f8fafc',
       },
