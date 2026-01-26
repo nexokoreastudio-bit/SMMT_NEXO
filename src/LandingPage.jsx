@@ -102,30 +102,11 @@ const LandingPage = () => {
       return;
     }
     
-    // Netlify Forms 제출
-    const form = e.target;
-    const formData = new FormData(form);
+    // 구글 폼 URL
+    const googleFormUrl = 'https://docs.google.com/forms/d/1HmA3oeoJqG6xbiU4oTsy5TqnHwLvgRCnYFGK7obktIc/edit?ts=697722bb';
     
-    // form-name 필드 추가 (Netlify Forms 필수)
-    formData.append('form-name', 'consultation');
-    
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
-      });
-      
-      if (response.ok) {
-        alert('공동구매 주문이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
-        form.reset();
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
-    }
+    // 구글 폼 페이지로 리다이렉트
+    window.location.href = googleFormUrl;
   };
 
   const painPoints = [
@@ -2189,7 +2170,7 @@ const LandingPage = () => {
             </div>
 
             <a
-              href="https://forms.gle/YOUR_GOOGLE_FORM_ID"
+              href="https://docs.google.com/forms/d/1HmA3oeoJqG6xbiU4oTsy5TqnHwLvgRCnYFGK7obktIc/edit?ts=697722bb"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-deep-navy text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-slate-800 transition text-center"
@@ -2197,9 +2178,6 @@ const LandingPage = () => {
               <i className="fa-brands fa-google mr-2"></i>
               구글 폼으로 공식 신청하기
             </a>
-            <p className="text-xs text-center text-gray-500 mt-4">
-              * 구글 폼 링크는 실제 폼이 준비되면 업데이트됩니다
-            </p>
           </motion.div>
         </div>
       </section>
