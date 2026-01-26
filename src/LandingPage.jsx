@@ -190,33 +190,21 @@ const LandingPage = () => {
   const productSpecs = [
     {
       icon: <i className="fa-solid fa-eye"></i>,
-      title: '눈부심 방지',
-      spec: '무반사 강화유리 (Anti-Glare)',
-      description: '형광등 아래서도 선명한 9H 경도 패널, 스크래치 방지',
-    },
-    {
-      icon: <i className="fa-brands fa-apple"></i>,
-      title: '기기 호환성',
-      spec: '맥북, 아이패드, 갤럭시탭 완벽 호환',
-      description: 'E-share 무선 미러링 지원 (양방향 제어 가능)',
-    },
-    {
-      icon: <i className="fa-solid fa-microchip"></i>,
-      title: '성능/용량',
-      spec: 'Android 13 탑재 / 16GB RAM / 256GB 저장공간',
-      description: '수업 자료를 칠판에 직접 저장해도 넉넉한 대용량',
+      title: '디스플레이',
+      spec: 'Zero-Bonding & Anti-Glare / 완전 제로 반사 + 9H 경도 강화유리',
+      description: '형광등 아래서도 선명한 시인성, 완벽한 필기감, 스크래치 방지',
     },
     {
       icon: <i className="fa-solid fa-video"></i>,
-      title: '녹화/마이크',
+      title: '사운드 & 마이크 & 카메라',
       spec: '4K 카메라 + 8 어레이 마이크 내장',
       description: '별도 장비 없이 목소리와 판서 화면 동시 녹화 가능',
     },
     {
-      icon: <i className="fa-solid fa-layer-group"></i>,
-      title: '멀티태스킹',
-      spec: '화면 분할 (Multi-Window) 지원',
-      description: '좌측에 유튜브/교재 띄우고, 우측에 판서 가능',
+      icon: <i className="fa-solid fa-microchip"></i>,
+      title: '시스템 사양',
+      spec: 'Android 13~15 최신 OS / 16GB RAM / 256GB 저장공간',
+      description: '모든 과목(영어, 과학, 논술)을 완벽 지원하는 압도적 고사양 스펙',
     },
   ];
 
@@ -269,7 +257,7 @@ const LandingPage = () => {
           </div>
           <div className="hidden md:block">
             <a
-              href="#consult-form"
+              href="#google-form"
               className="bg-deep-navy text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-800 transition"
             >
               공동구매 신청하기
@@ -285,7 +273,7 @@ const LandingPage = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4">
             <a
-              href="#consult-form"
+              href="#google-form"
               className="block w-full bg-deep-navy text-white px-4 py-2 rounded-lg text-sm font-bold text-center"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -316,63 +304,138 @@ const LandingPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-deep-navy/80 via-deep-navy/70 to-deep-navy/80"></div>
         </div>
 
-        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* 카운트다운 타이머 */}
+            {/* 써밋 커뮤니티 회원 전용 특별 할인 배지 */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="mb-6"
+              className="mb-8"
             >
-              <p className="text-white text-sm md:text-base mb-3 font-semibold">공동구매 마감까지</p>
-              <CountdownTimer endDate="2025-02-08T23:59:59" />
+              <div className="inline-flex items-center gap-2 bg-amber-600/90 text-white px-6 py-3 rounded-full text-sm md:text-base font-bold shadow-lg">
+                <span className="text-xl">🎉</span>
+                <span>써밋 커뮤니티 회원 전용 특별 할인</span>
+              </div>
             </motion.div>
 
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="inline-block bg-vibrant-orange/20 text-vibrant-orange border border-vibrant-orange/50 px-3 py-1 rounded-full text-sm font-bold mb-6"
+            {/* 메인 타이틀 */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4"
             >
-              ⏳ 마감 임박: 4,000명 수학 원장님의 선택
-            </motion.span>
-            <h1 className="text-4xl md:text-6xl font-black text-white leading-loose mb-6">
-              "넥소 전자칠판,
+              K-AI 미래를 위한
               <br />
-              <span className="text-vibrant-orange underline decoration-4 underline-offset-4">
-                지금 바로 사용해보고 싶으신가요?
+              <span className="text-vibrant-orange text-4xl md:text-6xl lg:text-7xl">
+                NEXO SMART DISPLAY
               </span>
-              <br />
-              <br />
-              4,000명 수학 선생님이 선택한 이유를 확인하세요"
-            </h1>
-            <p className="text-gray-200 text-lg md:text-xl mb-10 leading-relaxed">
-              SMMT 4,000명 원장님이 검증한, 오직 <strong className="text-white">'수학'</strong>을 위해 태어난 넥소(NEXO).
-            </p>
-            <div className="flex flex-col md:flex-row gap-4 justify-center">
+            </motion.h1>
+
+            {/* 제품 설명 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="mb-12"
+            >
+              <p className="text-gray-300 text-base md:text-lg mb-2">
+                초고화질 4K UHDㆍ대화형 AI 탑재 · 50포인트 멀티터치
+              </p>
+              <p className="text-gray-400 text-sm md:text-base">
+                학원 수업 환경의 새로운 표준을 제시합니다
+              </p>
+            </motion.div>
+
+            {/* 할인 정보 박스 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
+              className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/50 max-w-2xl mx-auto"
+            >
+              <p className="text-gray-400 text-sm md:text-base mb-3">써밋 회원 특별가</p>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+                <span className="text-white text-sm md:text-base">정가 대비</span>
+                <span className="text-vibrant-orange text-3xl md:text-4xl lg:text-5xl font-black">
+                  최대 55만원 할인
+                </span>
+              </div>
+            </motion.div>
+
+            {/* CTA 버튼 */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+              className="mt-10"
+            >
               <motion.a
-                href="#consult-form"
+                href="#google-form"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-orange-600 transition relative"
+                className="bg-vibrant-orange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-orange-600 transition relative inline-block"
                 style={{
                   animation: 'pulse-animation 2s infinite',
                 }}
               >
-                웨비나 무료 신청하기
+                공동구매 신청하기
               </motion.a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* NX-H Series 소개 섹션 */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-deep-navy/5 to-white px-4 snap-start">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="inline-block bg-vibrant-orange/20 text-vibrant-orange border border-vibrant-orange/50 px-4 py-2 rounded-full text-sm font-bold mb-6"
+            >
+              ⚡ 압도적 스펙, 수업의 격을 높이다
+            </motion.span>
+            <h2 className="text-3xl md:text-5xl font-black text-deep-navy leading-tight mb-6">
+              NEXO NX-H Series,
+              <br />
+              <span className="text-vibrant-orange underline decoration-4 underline-offset-4">
+                모든 과목을 아우르는 고사양 전자칠판
+              </span>
+              <br />
+              <br />
+              <span className="text-2xl md:text-4xl">
+                수학, 영어, 과학, 논술까지 완벽 지원하는 압도적 스펙
+              </span>
+            </h2>
+            <div className="mt-8 mb-6">
+              <p className="text-deep-navy text-lg md:text-xl font-semibold mb-4">
+                <strong className="text-vibrant-orange">Android 13~15</strong> · <strong className="text-vibrant-orange">16GB RAM</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
+              </p>
+              <p className="text-gray-700 text-base md:text-lg leading-relaxed">
+                수학뿐만 아니라 모든 과목을 위한 <strong className="text-deep-navy">All-Rounder</strong> 고사양 스펙
+              </p>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Problem Section */}
-      <section className="pt-24 pb-20 bg-white px-4 snap-start">
+      <section className="pt-24 pb-20 bg-white px-4 snap-start hidden">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -382,9 +445,9 @@ const LandingPage = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl font-bold text-deep-navy mb-4 scroll-mt-24">
-              왜 수학 선생님들은 전자칠판을 싫어했을까요?
+              왜 원장님들은 전자칠판을 싫어했을까요?
             </h2>
-            <p className="text-gray-500">우리는 여러분의 불신을 이해합니다. 기존 제품들은 수학 수업에 맞지 않았습니다.</p>
+            <p className="text-gray-500">우리는 여러분의 불신을 이해합니다. 기존 제품들은 모든 과목 수업에 맞지 않았습니다.</p>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
             {painPoints.map((point, index) => (
@@ -451,7 +514,7 @@ const LandingPage = () => {
       </section>
 
       {/* Analog vs Digital Comparison */}
-      <section className="pt-24 pb-20 bg-slate-100 px-4 snap-start">
+      <section className="pt-24 pb-20 bg-slate-100 px-4 snap-start hidden">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -530,9 +593,9 @@ const LandingPage = () => {
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">TECH SHOWCASE</span>
             <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3">
-              넥소만의 해결책, 유마인드 소프트웨어
+              압도적 스펙으로 모든 과목을 완벽 지원
             </h2>
-            <p className="text-gray-600 mt-3">수학 수업에 최적화된 기능을 직접 확인하세요</p>
+            <p className="text-gray-600 mt-3">수학, 영어, 과학, 논술까지 모든 수업 환경을 아우르는 NX-H Series</p>
           </motion.div>
 
           {/* 기능 1: 인피니티 캔버스 */}
@@ -637,6 +700,75 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Why NEXO - 핵심 기능 강조 */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-deep-navy to-slate-900 px-4 snap-start">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">WHY NEXO</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
+              왜 NEXO인가요?
+            </h2>
+            <p className="text-gray-300 text-lg">
+              AI 디지털 환경을 위한 NEXO 전자칠판은 교육 환경의 새로운 표준을 제시합니다.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                icon: <i className="fa-solid fa-microchip"></i>,
+                title: 'NX-H Series 독점 사양',
+                description: 'Android 13~15, 16GB RAM 등 고사양 스펙 부각',
+              },
+              {
+                icon: <i className="fa-solid fa-eye"></i>,
+                title: 'Zero-Bonding & Anti-Glare',
+                description: '완전 제로 반사, 고강도 강화유리의 시인성 및 필기감',
+              },
+              {
+                icon: <i className="fa-solid fa-wifi"></i>,
+                title: 'Smart Connectivity',
+                description: '실시간 무선 화면 미러링 (양방향 제어 지원)',
+              },
+              {
+                icon: <i className="fa-solid fa-layer-group"></i>,
+                title: 'Usability',
+                description: '간편한 QR코드 생성/공유, 멀티태스킹 분할 화면',
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:shadow-xl"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-vibrant-orange/20 flex items-center justify-center text-vibrant-orange text-2xl">
+                    {feature.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-300 text-base leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Product Specs */}
       <section id="product-specs" className="pt-24 pb-20 bg-light-gray px-4 scroll-mt-24 snap-start">
         <div className="max-w-4xl mx-auto">
@@ -649,10 +781,11 @@ const LandingPage = () => {
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest">PRODUCT SPECS</span>
             <h2 className="text-3xl font-bold text-deep-navy mt-2">
-              선생님들이 가장 많이 묻는 기능,
+              NX-H Series 압도적 스펙,
               <br />
-              표로 확인하세요
+              모든 과목을 완벽 지원
             </h2>
+            <p className="text-gray-500 mt-2">수학, 영어, 과학, 논술까지 모든 수업 환경에 최적화</p>
           </motion.div>
 
           <motion.div
@@ -679,10 +812,153 @@ const LandingPage = () => {
               </tbody>
             </table>
           </motion.div>
-          <div className="mt-6 text-center">
+          <div className="mt-6 text-center space-y-2">
             <p className="text-gray-600 text-sm">
               <i className="fa-solid fa-check text-vibrant-orange mr-1"></i> 윈도우(PC) 판서 프로그램도 기본 제공됩니다.
             </p>
+            <p className="text-vibrant-orange font-bold text-sm">
+              <i className="fa-solid fa-star mr-1"></i> NX-H Series 독점 사양: Android 13~15, 16GB RAM으로 모든 과목 완벽 지원
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 제품 라인업 */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-slate-800 to-slate-900 px-4 snap-start">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">제품 라인업</h2>
+            <p className="text-gray-300 text-lg">학원 규모와 용도에 맞는 최적의 모델을 선택하세요</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                size: '65"',
+                label: '65인치',
+                recommended: false,
+                specs: {
+                  cpu: 'Quad-Core MaliG52',
+                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  memory: '16GB / 256GB',
+                  brightness: '450nits',
+                  audio: '20W x 2 + 20W 서브우퍼',
+                  connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
+                },
+              },
+              {
+                size: '75"',
+                label: '75인치',
+                recommended: true,
+                specs: {
+                  cpu: 'Quad-Core MaliG52',
+                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  memory: '16GB / 256GB',
+                  brightness: '450nits',
+                  audio: '20W x 2 + 20W 서브우퍼',
+                  connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
+                },
+              },
+              {
+                size: '86"',
+                label: '86인치',
+                recommended: false,
+                specs: {
+                  cpu: 'Quad-Core MaliG52',
+                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  memory: '16GB / 256GB',
+                  brightness: '450nits',
+                  audio: '20W x 2 + 20W 서브우퍼',
+                  connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
+                },
+              },
+            ].map((product, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={`relative bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border-2 ${
+                  product.recommended
+                    ? 'border-vibrant-orange shadow-2xl md:-translate-y-2'
+                    : 'border-gray-700 hover:border-gray-600'
+                } transition-all duration-300`}
+              >
+                {product.recommended && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-vibrant-orange text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">
+                    학원 추천
+                  </div>
+                )}
+                
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2">NX-H Series</h3>
+                  <p className="text-gray-400 text-sm mb-4">{product.label}</p>
+                  <div className="text-4xl md:text-5xl font-black text-vibrant-orange">{product.size}</div>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">CPU:</span>
+                      <span className="text-white ml-2">{product.specs.cpu}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">OS:</span>
+                      <span className="text-white ml-2">{product.specs.os}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">Memory/Storage:</span>
+                      <span className="text-white ml-2">{product.specs.memory}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">Brightness:</span>
+                      <span className="text-white ml-2">{product.specs.brightness}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">Audio:</span>
+                      <span className="text-white ml-2">{product.specs.audio}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <i className="fa-solid fa-check text-vibrant-orange mt-1 flex-shrink-0"></i>
+                    <div className="text-sm">
+                      <span className="text-gray-400">Connectivity:</span>
+                      <span className="text-white ml-2">{product.specs.connectivity}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-700 pt-4 mt-4">
+                  <p className="text-gray-400 text-xs mb-2">공통 기능</p>
+                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-300">
+                    <div>• 4K UHD</div>
+                    <div>• 50포인트 터치</div>
+                    <div>• 4800만 화소 AI카메라</div>
+                    <div>• 8개 마이크</div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -768,6 +1044,154 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* 학원 수업의 새로운 기준 - NEXO 교육 솔루션 */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 snap-start">
+        <div className="max-w-7xl mx-auto">
+          {/* 상단 섹션 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-black text-vibrant-orange mb-6">
+              학원 수업의 새로운 기준
+            </h2>
+            <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+              NEXO 스마트 디스플레이는 전국 학원 납품 1위를 기록하며, 수많은 학원에서 검증된 교육 솔루션입니다.
+            </p>
+          </motion.div>
+
+          {/* 4가지 핵심 기능 */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {[
+              {
+                icon: <i className="fa-solid fa-chalkboard-teacher"></i>,
+                title: '학원 수업',
+                description: '펜, 도형, 지우개, 수학/과학 도구로 직관적인 수업 진행',
+              },
+              {
+                icon: <i className="fa-solid fa-video"></i>,
+                title: '온라인 강의',
+                description: '무반사 화면으로 빛 반사 없이 선명한 강의 녹화',
+              },
+              {
+                icon: <i className="fa-solid fa-mobile-screen-button"></i>,
+                title: '학생 미러링',
+                description: '16개 디바이스 동시 연결로 학생 발표 및 참여 유도',
+              },
+              {
+                icon: <i className="fa-solid fa-robot"></i>,
+                title: 'AI 학습 지원',
+                description: '실시간 Q&A, 수학 풀이, 외국어 학습 AI 지원',
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-vibrant-orange/50 transition-all duration-300"
+              >
+                <div className="w-16 h-16 rounded-xl bg-vibrant-orange/20 flex items-center justify-center text-vibrant-orange text-2xl mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 하단 섹션 - NEXO NX-Series 상세 정보 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="bg-gray-800/60 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-gray-700/50"
+          >
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              {/* 텍스트 영역 */}
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                  수업, 화상회의, 발표, 행사 등 모든 업무에 활용 가능한 NEXO NX-Series
+                </h3>
+                <ul className="space-y-4">
+                  {[
+                    '초고화질 4K UHD Display',
+                    '무반사(최상위등급)적용·경도9H 고강도 강화유리',
+                    '무선 양방향 9개 디바이스 동시 미러링',
+                    '대화형 AI기능 탑재',
+                    '빠른 응답속도',
+                  ].map((feature, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="flex items-start gap-3"
+                    >
+                      <i className="fa-solid fa-check-circle text-vibrant-orange mt-1 flex-shrink-0"></i>
+                      <span className="text-gray-300 text-base md:text-lg">{feature}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 제품 이미지 영역 */}
+              <div className="relative">
+                <div className="bg-gray-900/80 rounded-2xl p-6 border border-gray-700/50">
+                  <div className="aspect-video bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-red-900/20 rounded-xl flex items-center justify-center relative overflow-hidden">
+                    {/* 제품 UI 시뮬레이션 */}
+                    <div className="absolute inset-0 flex flex-col">
+                      {/* 상단 상태바 */}
+                      <div className="h-12 bg-gray-900/50 flex items-center justify-between px-4 text-white text-xs">
+                        <div className="flex items-center gap-2">
+                          <span>11:45</span>
+                          <span className="text-gray-400">5월 8일</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <i className="fa-solid fa-wifi"></i>
+                          <i className="fa-solid fa-battery-full"></i>
+                        </div>
+                      </div>
+                      {/* 중앙 검색바 */}
+                      <div className="flex-1 flex items-center justify-center">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 w-3/4 flex items-center gap-3">
+                          <i className="fa-brands fa-google text-white/60"></i>
+                          <span className="text-white/60 text-sm">검색</span>
+                        </div>
+                      </div>
+                      {/* 하단 앱 아이콘 */}
+                      <div className="h-20 bg-gray-900/50 flex items-center justify-center gap-6 px-8">
+                        <div className="w-12 h-12 bg-blue-500/30 rounded-xl flex items-center justify-center">
+                          <i className="fa-brands fa-chrome text-blue-400"></i>
+                        </div>
+                        <div className="w-12 h-12 bg-red-500/30 rounded-xl flex items-center justify-center">
+                          <i className="fa-brands fa-youtube text-red-400"></i>
+                        </div>
+                        <div className="w-12 h-12 bg-green-500/30 rounded-xl flex items-center justify-center">
+                          <i className="fa-solid fa-file-word text-green-400"></i>
+                        </div>
+                        <div className="w-12 h-12 bg-purple-500/30 rounded-xl flex items-center justify-center">
+                          <i className="fa-brands fa-google-play text-purple-400"></i>
+                        </div>
+                        <div className="w-16 h-16 bg-vibrant-orange/20 rounded-xl flex items-center justify-center">
+                          <span className="text-vibrant-orange font-bold text-xs">NEXO</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Product Specifications - 상세 제품 사양 */}
       <section id="product-specs" className="pt-24 pb-20 bg-white px-4 snap-start">
         <div className="max-w-6xl mx-auto">
@@ -813,37 +1237,12 @@ const LandingPage = () => {
             </div>
           </motion.div>
 
-          {/* 터치 사양 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-8"
-          >
-            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
-              <i className="fa-solid fa-hand-pointer text-vibrant-orange"></i>
-              터치 유형 (Touch Type)
-            </h3>
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div><strong className="text-deep-navy">터치 기술:</strong> <span className="text-gray-700">IR Touch</span></div>
-                <div><strong className="text-deep-navy">멀티 터치:</strong> <span className="text-gray-700">최대 40점 (Windows)</span></div>
-                <div><strong className="text-deep-navy">다중 쓰기:</strong> <span className="text-gray-700">최대 20점 (Windows)</span></div>
-                <div><strong className="text-deep-navy">터치 정밀도:</strong> <span className="text-gray-700">1mm (90% 이상 영역)</span></div>
-                <div><strong className="text-deep-navy">자동 보정:</strong> <span className="text-gray-700">지원</span></div>
-                <div><strong className="text-deep-navy">터치 응답 시간:</strong> <span className="text-gray-700">첫 터치 &lt;2ms, 연속 터치 &lt;8ms</span></div>
-                <div className="md:col-span-2"><strong className="text-deep-navy">지원 OS:</strong> <span className="text-gray-700">Windows 7/8/10/11, Android, Mac, Linux, Chrome OS</span></div>
-              </div>
-            </div>
-          </motion.div>
-
           {/* 사운드 & 마이크 & 카메라 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-8"
           >
             <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
@@ -881,61 +1280,12 @@ const LandingPage = () => {
             </div>
           </motion.div>
 
-          {/* 연결 포트 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-8"
-          >
-            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
-              <i className="fa-solid fa-plug text-vibrant-orange"></i>
-              연결 포트 (Connections)
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h4 className="font-bold text-deep-navy mb-3">전면 연결</h4>
-                <div className="space-y-2 text-sm">
-                  <div><strong>Type-C:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>HDMI IN:</strong> <span className="text-gray-700">3개</span></div>
-                  <div><strong>USB 3.0:</strong> <span className="text-gray-700">2개</span></div>
-                  <div><strong>Touch USB:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>NFC:</strong> <span className="text-gray-700">지원</span></div>
-                  <div><strong>지문 인식:</strong> <span className="text-gray-700">지원</span></div>
-                </div>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h4 className="font-bold text-deep-navy mb-3">하단 측면 연결</h4>
-                <div className="space-y-2 text-sm">
-                  <div><strong>RJ45 IN/OUT:</strong> <span className="text-gray-700">각 1개</span></div>
-                  <div><strong>HDMI 출력:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>Type-C 출력:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>VGA:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>RS232:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>SPDIF 아웃:</strong> <span className="text-gray-700">1개</span></div>
-                </div>
-              </div>
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                <h4 className="font-bold text-deep-navy mb-3">사이드 연결</h4>
-                <div className="space-y-2 text-sm">
-                  <div><strong>HDMI IN:</strong> <span className="text-gray-700">3개</span></div>
-                  <div><strong>USB 터치:</strong> <span className="text-gray-700">3개</span></div>
-                  <div><strong>DP:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>TYPE C IN:</strong> <span className="text-gray-700">1개</span></div>
-                  <div><strong>USB 3.0:</strong> <span className="text-gray-700">3개</span></div>
-                  <div><strong>TF 카드:</strong> <span className="text-gray-700">1개</span></div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
           {/* 시스템 사양 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-8"
           >
             <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
@@ -960,60 +1310,6 @@ const LandingPage = () => {
             </div>
           </motion.div>
 
-          {/* 일반 정보 & 환경 조건 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid md:grid-cols-2 gap-6"
-          >
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              <h3 className="text-lg font-bold text-deep-navy mb-4 flex items-center gap-2">
-                <i className="fa-solid fa-info-circle text-vibrant-orange"></i>
-                일반 정보
-              </h3>
-              <div className="space-y-2 text-sm">
-                <div><strong className="text-deep-navy">순중량:</strong> <span className="text-gray-700">45kg (±2kg)</span></div>
-                <div><strong className="text-deep-navy">총중량:</strong> <span className="text-gray-700">55kg (±2kg)</span></div>
-                <div><strong className="text-deep-navy">화면 크기:</strong> <span className="text-gray-700">1470.9 × 97.5 × 897.5mm (W×D×H)</span></div>
-                <div><strong className="text-deep-navy">패키지 치수:</strong> <span className="text-gray-700">1622 × 190 × 1038mm</span></div>
-                <div><strong className="text-deep-navy">VESA 표준:</strong> <span className="text-gray-700">600×400mm</span></div>
-                <div><strong className="text-deep-navy">전원:</strong> <span className="text-gray-700">100-240V (50/60Hz)</span></div>
-                <div><strong className="text-deep-navy">대기 전력:</strong> <span className="text-gray-700">≤0.5W</span></div>
-                <div><strong className="text-deep-navy">인증:</strong> <span className="text-gray-700">CE (EMC+LVD), RoHS, FCC, CCC</span></div>
-                <div><strong className="text-deep-navy">보증:</strong> <span className="text-gray-700">전체 제품 1년, 터치 부품 3년 (연장 옵션 가능)</span></div>
-              </div>
-            </div>
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              <h3 className="text-lg font-bold text-deep-navy mb-4 flex items-center gap-2">
-                <i className="fa-solid fa-thermometer-half text-vibrant-orange"></i>
-                환경 조건 & 액세서리
-              </h3>
-              <div className="space-y-4 text-sm">
-                <div>
-                  <h4 className="font-bold text-deep-navy mb-2">환경 조건</h4>
-                  <div className="space-y-1 text-gray-700">
-                    <div><strong>작동 온도:</strong> 0°C ~ 40°C (32°F ~ 100°F)</div>
-                    <div><strong>보관 온도:</strong> -20°C ~ 60°C (-4°F ~ 140°F)</div>
-                    <div><strong>습도:</strong> 10% ~ 90%</div>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-deep-navy mb-2">기본 액세서리</h4>
-                  <div className="space-y-1 text-gray-700">
-                    <div>• Wi-Fi 안테나 × 2개</div>
-                    <div>• 잉크 펜 × 2개</div>
-                    <div>• 리모컨 × 1개</div>
-                    <div>• 전원 코드 (1.5m) × 1개</div>
-                    <div>• HDMI 케이블 (1.5m) × 1개</div>
-                    <div>• USB 터치 케이블 (1.5m) × 1개</div>
-                    <div>• 벽걸이 키트</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
 
@@ -1028,8 +1324,16 @@ const LandingPage = () => {
             className="text-center mb-12"
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">PRICING</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">전자칠판 가격표</h2>
-            <p className="text-gray-600 text-base">사이즈별 현금/카드 결제 및 할부 상품 안내</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">써밋 회원 전용 특별가 (1/27~2/18)</h2>
+            <p className="text-gray-600 text-base mb-4">
+              써밋 커뮤니티 회원만을 위한 특별 할인가로 NEXO 전자칠판을 만나보세요.
+              <br />
+              지금 문의하시면 상담부터 설치까지 전담 지원해 드립니다.
+            </p>
+            <div className="mt-4">
+              <p className="text-lg font-bold text-deep-navy mb-2">써밋 × NEXO 콜라보 특가</p>
+              <p className="text-2xl md:text-3xl font-black text-vibrant-orange">최대 55만원 할인</p>
+            </div>
           </motion.div>
 
           {/* 가격표 - 65인치, 75인치, 86인치 */}
@@ -1039,6 +1343,7 @@ const LandingPage = () => {
                 size: '65',
                 label: '65인치',
                 regularPrice: 2750000,
+                discount: 500000,
                 prices: {
                   cash: { wall: 2250000, stand: 2500000 },
                   installment: {
@@ -1054,6 +1359,7 @@ const LandingPage = () => {
                 label: '75인치',
                 recommended: true,
                 regularPrice: 3200000,
+                discount: 450000,
                 prices: {
                   cash: { wall: 2750000, stand: 3000000 },
                   installment: {
@@ -1068,6 +1374,7 @@ const LandingPage = () => {
                 size: '86',
                 label: '86인치',
                 regularPrice: 4000000,
+                discount: 550000,
                 prices: {
                   cash: { wall: 3450000, stand: 3800000 },
                   installment: {
@@ -1122,15 +1429,15 @@ const LandingPage = () => {
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">이동형 스탠드</span>
+                        <span className="text-sm text-gray-600">전용 이동형 스탠드</span>
                         <span className="font-bold text-deep-navy">
-                          {product.prices.cash.stand.toLocaleString()}원
+                          {(product.prices.cash.stand - product.prices.cash.wall).toLocaleString()}원
                         </span>
                       </div>
-                      {product.regularPrice && (
+                      {product.discount && (
                         <div className="mt-2 pt-2 border-t border-gray-100">
                           <p className="text-xs text-vibrant-orange font-semibold">
-                            최대 {(product.regularPrice - product.prices.cash.wall).toLocaleString()}원 할인
+                            {product.discount.toLocaleString()}원 할인
                           </p>
                         </div>
                       )}
@@ -1172,7 +1479,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          {/* 안내 사항 */}
+          {/* 포함 서비스 및 안내 사항 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1180,14 +1487,24 @@ const LandingPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="bg-white rounded-xl p-6 border border-gray-200"
           >
-            <div className="space-y-2 text-sm text-gray-600">
-              <p className="flex items-start gap-2">
-                <i className="fa-solid fa-info-circle text-vibrant-orange mt-1"></i>
-                <span>할부 금융 프로그램 진행 시 추가 서류가 필요합니다.</span>
-              </p>
-              <p className="flex items-start gap-2">
-                <i className="fa-solid fa-check-circle text-vibrant-orange mt-1"></i>
-                <span>할부 완납 시 소유권이 구매자에게 이전됩니다.</span>
+            <h4 className="font-bold text-deep-navy mb-4 text-center">포함 서비스</h4>
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <div className="flex items-center gap-2 text-sm">
+                <i className="fa-solid fa-check-circle text-vibrant-orange"></i>
+                <span className="text-gray-700">무료 설치 및 교육</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <i className="fa-solid fa-check-circle text-vibrant-orange"></i>
+                <span className="text-gray-700">1년 무상 A/S</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <i className="fa-solid fa-check-circle text-vibrant-orange"></i>
+                <span className="text-gray-700">이동형 스탠드 옵션</span>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 pt-4">
+              <p className="text-xs text-gray-500 text-center">
+                *벽면 설치 시, 스탠드 비용 제외
               </p>
             </div>
           </motion.div>
@@ -1343,46 +1660,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* 공구 가격 섹션 */}
-      <section id="pricing" className="pt-24 pb-12 bg-gradient-to-br from-vibrant-orange/5 to-white px-4 snap-start">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">GROUP PURCHASE PRICE</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">공동구매 특별가</h2>
-            <p className="text-gray-600 text-base">(1월 26일 월요일 ~ 2월 8일 일요일 마감)</p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white border-2 border-vibrant-orange rounded-3xl p-8 md:p-12 shadow-xl text-center"
-          >
-            <div className="mb-4">
-              <p className="text-gray-500 text-sm mb-2">정가 (75인치)</p>
-              <p className="text-gray-400 line-through text-xl">3,200,000원</p>
-            </div>
-            <div className="mb-6">
-              <p className="text-vibrant-orange font-bold text-sm mb-2">공동구매 특별가 (75인치 벽걸이)</p>
-              <p className="text-deep-navy font-black text-4xl md:text-5xl mb-2">2,750,000원</p>
-              <p className="text-vibrant-orange font-bold text-lg">정가 대비 450,000원 할인 (14% 할인)</p>
-            </div>
-            <div className="bg-vibrant-orange/10 rounded-lg p-4">
-              <p className="text-deep-navy font-semibold text-sm">
-                <i className="fa-solid fa-info-circle text-vibrant-orange mr-2"></i>
-                이 가격은 공동구매 기간 동안만 적용되는 특별 혜택입니다
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Benefits & Pricing */}
       <section id="price-benefit" className="pt-12 pb-20 bg-white px-4 snap-start">
         <div className="max-w-4xl mx-auto">
@@ -1395,7 +1672,7 @@ const LandingPage = () => {
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">LIMITED OFFER</span>
             <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">SMMT 런칭 기념, 단 2주간의 혜택</h2>
-            <p className="text-gray-600 text-base">(1월 26일 월요일 ~ 2월 8일 일요일 마감)</p>
+            <p className="text-gray-600 text-base">(1월 27일 화요일 ~ 2월 18일 수요일 마감)</p>
           </motion.div>
 
           <motion.div
@@ -1415,7 +1692,7 @@ const LandingPage = () => {
                   {
                     icon: <i className="fa-solid fa-check-circle text-xl"></i>,
                     title: '공동구매 특별가',
-                    desc: '2,750,000원 (정가 3,200,000원 대비 450,000원 할인)',
+                    desc: '',
                   },
                   {
                     icon: <i className="fa-solid fa-truck-fast text-xl"></i>,
