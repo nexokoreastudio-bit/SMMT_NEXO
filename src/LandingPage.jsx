@@ -217,6 +217,10 @@ const LandingPage = () => {
       area: '8~10평 미만',
       students: '5~8명 내외',
       note: '교습소, 공부방, 1:1 과외방 추천',
+      width: '가로: 1470.9mm',
+      height: '세로: 930mm',
+      depth: '폭: 97.5mm',
+      weight: '무게: 45kg',
     },
     {
       size: '75',
@@ -226,7 +230,10 @@ const LandingPage = () => {
       area: '10~15평',
       students: '10~15명',
       note: '가장 무난하고 실패 없는 선택',
-      width: '가로길이 약 1.7m',
+      width: '가로: 1692.1mm',
+      height: '세로: 1050mm',
+      depth: '폭: 97.5mm',
+      weight: '무게: 55kg',
     },
     {
       size: '86',
@@ -236,7 +243,10 @@ const LandingPage = () => {
       area: '15평 이상',
       students: '20명 이상',
       note: '"거거익선" 후회 없는 선택',
-      width: '가로길이 약 1.95m',
+      width: '가로: 1943.4mm',
+      height: '세로: 1193mm',
+      depth: '폭: 97.5mm',
+      weight: '무게: 70kg',
     },
   ];
 
@@ -413,13 +423,13 @@ const LandingPage = () => {
             <h2 className="text-3xl md:text-5xl font-black text-deep-navy leading-tight mb-6">
               NEXO NX Series,
               <br />
-              <span className="text-vibrant-orange underline decoration-4 underline-offset-4">
+              <span className="text-vibrant-orange font-black text-2xl md:text-3xl">
                 모든 과목을 아우르는 고사양 전자칠판
               </span>
               <br />
               <br />
               <span className="text-2xl md:text-4xl">
-                수학, 영어, 과학, 논술까지 완벽 지원하는 압도적 스펙
+                수학, 영어, 과학, 국어(논술)까지 완벽 지원하는 압도적 스펙
               </span>
             </h2>
             <div className="mt-8 mb-6">
@@ -1037,11 +1047,25 @@ const LandingPage = () => {
                   <p className="mb-1">
                     <strong>추천 평수:</strong> {option.area}
                   </p>
-                  <p>
+                  <p className="mb-1">
                     <strong>수강 인원:</strong> {option.students}
                   </p>
-                  {option.width && (
-                    <p className="text-xs text-gray-500 mt-2">({option.width})</p>
+                  {option.width && option.height && (
+                    <div className="mt-2 pt-2 border-t border-gray-300">
+                      <p className="text-xs text-gray-600 mb-1">
+                        <strong>사이즈:</strong> {option.width} × {option.height}
+                      </p>
+                      {option.depth && (
+                        <p className="text-xs text-gray-600 mb-1">
+                          {option.depth}
+                        </p>
+                      )}
+                      {option.weight && (
+                        <p className="text-xs text-gray-600">
+                          {option.weight}
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
                 <p className={`text-xs ${option.recommended ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -1216,12 +1240,52 @@ const LandingPage = () => {
             <p className="text-gray-600 text-base">65인치, 75인치, 86인치 공통 사양</p>
           </motion.div>
 
-          {/* 디스플레이 사양 */}
+          {/* 시스템 사양 */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
+              <i className="fa-solid fa-microchip text-vibrant-orange"></i>
+              시스템 사양 (Riotouch Central)
+            </h3>
+            {/* CPU, ROM, RAM 강조 섹션 - 가장 위에 배치 */}
+            <div className="flex flex-wrap gap-4 mb-4 pb-4 border-b-2 border-vibrant-orange/30">
+              <div className="flex items-center gap-2">
+                <strong className="text-vibrant-orange font-bold">CPU:</strong>
+                <span className="text-vibrant-orange font-semibold">Octa-Core</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <strong className="text-vibrant-orange font-bold">RAM:</strong>
+                <span className="text-vibrant-orange font-semibold">16GB DDR4</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <strong className="text-vibrant-orange font-bold">ROM:</strong>
+                <span className="text-vibrant-orange font-semibold">256GB</span>
+              </div>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0 (15.0 Up)</span></div>
+                <div><strong className="text-deep-navy">Wi-Fi:</strong> <span className="text-gray-700">IEEE 802.11a/b/g/n/ac/ax (Wi-Fi 6), 2.4/5GHz</span></div>
+                <div><strong className="text-deep-navy">블루투스:</strong> <span className="text-gray-700">5.2</span></div>
+                <div><strong className="text-deep-navy">Windows OPS 슬롯:</strong> <span className="text-gray-700">80핀 OPS 슬롯</span></div>
+                <div><strong className="text-deep-navy">지원 OS:</strong> <span className="text-gray-700">Windows, Mac, Linux, Chrome OS</span></div>
+                <div><strong className="text-deep-navy">OTA 업데이트:</strong> <span className="text-gray-700">지원</span></div>
+                <div><strong className="text-deep-navy">센서:</strong> <span className="text-gray-700">광 센서, 온도/습도/공기질 3-in-One, NFC 리더/라이터, 지문 모듈</span></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 디스플레이 사양 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-8"
           >
             <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
@@ -1251,7 +1315,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-8"
           >
             <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
@@ -1285,46 +1349,6 @@ const LandingPage = () => {
                     <div><strong>시야각:</strong> <span className="text-gray-700">120°</span></div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* 시스템 사양 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8"
-          >
-            <h3 className="text-xl font-bold text-deep-navy mb-4 flex items-center gap-2">
-              <i className="fa-solid fa-microchip text-vibrant-orange"></i>
-              시스템 사양 (Riotouch Central)
-            </h3>
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-              {/* CPU, ROM, RAM 강조 섹션 */}
-              <div className="flex flex-wrap gap-4 mb-6 pb-4 border-b-2 border-vibrant-orange/30">
-                <div className="flex items-center gap-2">
-                  <strong className="text-vibrant-orange font-bold">CPU:</strong>
-                  <span className="text-vibrant-orange font-semibold">Octa-Core</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <strong className="text-vibrant-orange font-bold">RAM:</strong>
-                  <span className="text-vibrant-orange font-semibold">16GB DDR4</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <strong className="text-vibrant-orange font-bold">ROM:</strong>
-                  <span className="text-vibrant-orange font-semibold">256GB</span>
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0 (15.0 Up)</span></div>
-                <div><strong className="text-deep-navy">Wi-Fi:</strong> <span className="text-gray-700">IEEE 802.11a/b/g/n/ac/ax (Wi-Fi 6), 2.4/5GHz</span></div>
-                <div><strong className="text-deep-navy">블루투스:</strong> <span className="text-gray-700">5.2</span></div>
-                <div><strong className="text-deep-navy">Windows OPS 슬롯:</strong> <span className="text-gray-700">80핀 OPS 슬롯</span></div>
-                <div><strong className="text-deep-navy">지원 OS:</strong> <span className="text-gray-700">Windows, Mac, Linux, Chrome OS</span></div>
-                <div><strong className="text-deep-navy">OTA 업데이트:</strong> <span className="text-gray-700">지원</span></div>
-                <div><strong className="text-deep-navy">센서:</strong> <span className="text-gray-700">광 센서, 온도/습도/공기질 3-in-One, NFC 리더/라이터, 지문 모듈</span></div>
               </div>
             </div>
           </motion.div>
