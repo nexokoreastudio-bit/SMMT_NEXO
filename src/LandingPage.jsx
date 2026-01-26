@@ -219,8 +219,6 @@ const LandingPage = () => {
       note: '교습소, 공부방, 1:1 과외방 추천',
       width: '가로: 1470.9mm',
       height: '세로: 930mm',
-      depth: '폭: 97.5mm',
-      weight: '무게: 45kg',
     },
     {
       size: '75',
@@ -232,8 +230,6 @@ const LandingPage = () => {
       note: '가장 무난하고 실패 없는 선택',
       width: '가로: 1692.1mm',
       height: '세로: 1050mm',
-      depth: '폭: 97.5mm',
-      weight: '무게: 55kg',
     },
     {
       size: '86',
@@ -245,8 +241,6 @@ const LandingPage = () => {
       note: '"거거익선" 후회 없는 선택',
       width: '가로: 1943.4mm',
       height: '세로: 1193mm',
-      depth: '폭: 97.5mm',
-      weight: '무게: 70kg',
     },
   ];
 
@@ -807,7 +801,7 @@ const LandingPage = () => {
               <br />
               모든 과목을 완벽 지원
             </h2>
-            <p className="text-gray-500 mt-2">수학, 영어, 과학, 논술까지 모든 수업 환경에 최적화</p>
+            <p className="text-gray-500 mt-2">수학, 영어, 과학, 국어(논술)까지 모든 수업 환경에 최적화</p>
           </motion.div>
 
           <motion.div
@@ -1052,19 +1046,9 @@ const LandingPage = () => {
                   </p>
                   {option.width && option.height && (
                     <div className="mt-2 pt-2 border-t border-gray-300">
-                      <p className="text-xs text-gray-600 mb-1">
+                      <p className="text-xs text-gray-600">
                         <strong>사이즈:</strong> {option.width} × {option.height}
                       </p>
-                      {option.depth && (
-                        <p className="text-xs text-gray-600 mb-1">
-                          {option.depth}
-                        </p>
-                      )}
-                      {option.weight && (
-                        <p className="text-xs text-gray-600">
-                          {option.weight}
-                        </p>
-                      )}
                     </div>
                   )}
                 </div>
