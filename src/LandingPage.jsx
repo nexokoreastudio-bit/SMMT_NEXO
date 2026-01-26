@@ -599,7 +599,6 @@ const LandingPage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3">
               압도적 스펙으로 모든 과목을 완벽 지원
             </h2>
-            <p className="text-gray-600 mt-3">수학, 영어, 과학, 논술까지 모든 수업 환경을 아우르는 NX Series</p>
           </motion.div>
 
           {/* 기능 1: 인피니티 캔버스 */}
