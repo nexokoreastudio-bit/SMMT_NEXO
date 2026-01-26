@@ -19,15 +19,8 @@ body {
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
   scroll-padding-top: 80px;
-}
-
-/* 각 섹션에 스크롤 스냅 적용 */
-section.snap-start {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 @keyframes pulse-animation {

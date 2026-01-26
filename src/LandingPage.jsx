@@ -363,12 +363,10 @@ const LandingPage = () => {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/50 max-w-2xl mx-auto"
             >
-              <p className="text-gray-400 text-sm md:text-base mb-3">써밋 회원 특별가</p>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-                <span className="text-white text-sm md:text-base">정가 대비</span>
-                <span className="text-vibrant-orange text-3xl md:text-4xl lg:text-5xl font-black">
-                  최대 55만원 할인
-                </span>
+              <div className="text-center">
+                <p className="text-vibrant-orange text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
+                  써밋 회원 최대 할인
+                </p>
               </div>
             </motion.div>
 
@@ -1003,6 +1001,7 @@ const LandingPage = () => {
               alt="전자칠판 사이즈 비교"
               className="mx-auto rounded-2xl shadow-lg max-w-full h-auto"
               style={{ maxHeight: '500px' }}
+              loading="lazy"
             />
           </motion.div>
 
@@ -1358,7 +1357,7 @@ const LandingPage = () => {
             </p>
             <div className="mt-4">
               <p className="text-lg font-bold text-deep-navy mb-2">써밋 × NEXO 콜라보 특가</p>
-              <p className="text-2xl md:text-3xl font-black text-vibrant-orange">최대 55만원 할인</p>
+              <p className="text-2xl md:text-3xl font-black text-vibrant-orange">써밋 회원 최대 할인</p>
             </div>
           </motion.div>
 
@@ -1368,8 +1367,8 @@ const LandingPage = () => {
               {
                 size: '65',
                 label: '65인치',
-                regularPrice: 2750000,
-                discount: 500000,
+                regularPrice: 3300000,
+                discount: 1050000,
                 prices: {
                   cash: { wall: 2250000, stand: 2500000 },
                   installment: {
@@ -1384,8 +1383,8 @@ const LandingPage = () => {
                 size: '75',
                 label: '75인치',
                 recommended: true,
-                regularPrice: 3200000,
-                discount: 450000,
+                regularPrice: 3630000,
+                discount: 880000,
                 prices: {
                   cash: { wall: 2750000, stand: 3000000 },
                   installment: {
@@ -1399,8 +1398,8 @@ const LandingPage = () => {
               {
                 size: '86',
                 label: '86인치',
-                regularPrice: 4000000,
-                discount: 550000,
+                regularPrice: 4840000,
+                discount: 1390000,
                 prices: {
                   cash: { wall: 3450000, stand: 3800000 },
                   installment: {
@@ -1460,16 +1459,6 @@ const LandingPage = () => {
                           {product.prices.cash.stand.toLocaleString()}원
                         </span>
                       </div>
-                      {product.discount && (
-                        <div className="mt-3 pt-3 border-t-2 border-vibrant-orange/30">
-                          <div className="bg-vibrant-orange/10 rounded-lg p-3 text-center">
-                            <p className="text-lg md:text-xl font-black text-vibrant-orange">
-                              {product.discount.toLocaleString()}원 할인
-                            </p>
-                            <p className="text-xs text-gray-600 mt-1">정가 대비 특별 할인</p>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
