@@ -197,13 +197,13 @@ const LandingPage = () => {
     {
       icon: <i className="fa-solid fa-video"></i>,
       title: '사운드 & 마이크 & 카메라',
-      spec: '4K 카메라 + 8 어레이 마이크 내장',
+      spec: '48MP AI Camera + 8 어레이 마이크 내장',
       description: '별도 장비 없이 목소리와 판서 화면 동시 녹화 가능',
     },
     {
       icon: <i className="fa-solid fa-microchip"></i>,
       title: '시스템 사양',
-      spec: 'Android 13~15 최신 OS / 16GB RAM / 256GB 저장공간',
+      spec: 'Android 13.0 (15.0 Up) / Octa-Core / 16GB / 256GB',
       description: '모든 과목(영어, 과학, 논술)을 완벽 지원하는 압도적 고사양 스펙',
     },
   ];
@@ -424,7 +424,7 @@ const LandingPage = () => {
             </h2>
             <div className="mt-8 mb-6">
               <p className="text-deep-navy text-lg md:text-xl font-semibold mb-4">
-                <strong className="text-vibrant-orange">Android 13~15</strong> · <strong className="text-vibrant-orange">16GB RAM</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
+                <strong className="text-vibrant-orange">Android 13.0 (15.0 Up)</strong> · <strong className="text-vibrant-orange">Octa-Core</strong> · <strong className="text-vibrant-orange">16GB / 256GB</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
               </p>
               <p className="text-gray-700 text-base md:text-lg leading-relaxed">
                 수학뿐만 아니라 모든 과목을 위한 <strong className="text-deep-navy">All-Rounder</strong> 고사양 스펙
@@ -724,7 +724,7 @@ const LandingPage = () => {
               {
                 icon: <i className="fa-solid fa-microchip"></i>,
                 title: 'NX-H Series 독점 사양',
-                description: 'Android 13~15, 16GB RAM 등 고사양 스펙 부각',
+                description: 'Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB 등 고사양 스펙 부각',
               },
               {
                 icon: <i className="fa-solid fa-eye"></i>,
@@ -817,7 +817,7 @@ const LandingPage = () => {
               <i className="fa-solid fa-check text-vibrant-orange mr-1"></i> 윈도우(PC) 판서 프로그램도 기본 제공됩니다.
             </p>
             <p className="text-vibrant-orange font-bold text-sm">
-              <i className="fa-solid fa-star mr-1"></i> NX-H Series 독점 사양: Android 13~15, 16GB RAM으로 모든 과목 완벽 지원
+              <i className="fa-solid fa-star mr-1"></i> NX-H Series 독점 사양: Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB로 모든 과목 완벽 지원
             </p>
           </div>
         </div>
@@ -844,11 +844,11 @@ const LandingPage = () => {
                 label: '65인치',
                 recommended: false,
                 specs: {
-                  cpu: 'Quad-Core MaliG52',
-                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  cpu: 'Octa-Core',
+                  os: 'Android 13.0 (15.0 Up)',
                   memory: '16GB / 256GB',
                   brightness: '450nits',
-                  audio: '20W x 2 + 20W 서브우퍼',
+                  audio: '20W x 2 + Subwoofer',
                   connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
                 },
               },
@@ -857,11 +857,11 @@ const LandingPage = () => {
                 label: '75인치',
                 recommended: true,
                 specs: {
-                  cpu: 'Quad-Core MaliG52',
-                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  cpu: 'Octa-Core',
+                  os: 'Android 13.0 (15.0 Up)',
                   memory: '16GB / 256GB',
                   brightness: '450nits',
-                  audio: '20W x 2 + 20W 서브우퍼',
+                  audio: '20W x 2 + Subwoofer',
                   connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
                 },
               },
@@ -870,11 +870,11 @@ const LandingPage = () => {
                 label: '86인치',
                 recommended: false,
                 specs: {
-                  cpu: 'Quad-Core MaliG52',
-                  os: '안드로이드 13.0 (15.0 업그레이드)',
+                  cpu: 'Octa-Core',
+                  os: 'Android 13.0 (15.0 Up)',
                   memory: '16GB / 256GB',
                   brightness: '450nits',
-                  audio: '20W x 2 + 20W 서브우퍼',
+                  audio: '20W x 2 + Subwoofer',
                   connectivity: 'Wi-Fi 6, NFC, 대화형 AI, 지문인식',
                 },
               },
@@ -953,7 +953,7 @@ const LandingPage = () => {
                   <div className="grid grid-cols-2 gap-2 text-xs text-gray-300">
                     <div>• 4K UHD</div>
                     <div>• 50포인트 터치</div>
-                    <div>• 4800만 화소 AI카메라</div>
+                    <div>• 48MP AI Camera</div>
                     <div>• 8개 마이크</div>
                   </div>
                 </div>
@@ -1255,7 +1255,7 @@ const LandingPage = () => {
                   <h4 className="font-bold text-deep-navy mb-3">사운드</h4>
                   <div className="space-y-2 text-sm">
                     <div><strong>프론트 스피커:</strong> <span className="text-gray-700">20W × 2</span></div>
-                    <div><strong>서브우퍼:</strong> <span className="text-gray-700">20W × 1</span></div>
+                    <div><strong>서브우퍼:</strong> <span className="text-gray-700">Subwoofer</span></div>
                     <div><strong>총 출력:</strong> <span className="text-gray-700">≤60W</span></div>
                   </div>
                 </div>
@@ -1271,7 +1271,7 @@ const LandingPage = () => {
                 <div>
                   <h4 className="font-bold text-deep-navy mb-3">카메라 (옵션)</h4>
                   <div className="space-y-2 text-sm">
-                    <div><strong>해상도:</strong> <span className="text-gray-700">4800M (AI) / 6400M</span></div>
+                    <div><strong>해상도:</strong> <span className="text-gray-700">48MP AI Camera</span></div>
                     <div><strong>최대 해상도:</strong> <span className="text-gray-700">4208×3120 (30fps)</span></div>
                     <div><strong>시야각:</strong> <span className="text-gray-700">120°</span></div>
                   </div>
@@ -1295,11 +1295,11 @@ const LandingPage = () => {
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div><strong className="text-deep-navy">칩셋:</strong> <span className="text-gray-700">Rockchip RK3588</span></div>
-                <div><strong className="text-deep-navy">CPU:</strong> <span className="text-gray-700">쿼드코어 Cortex-A76 + 쿼드코어 Cortex-A55 (최대 2.4GHz)</span></div>
+                <div><strong className="text-deep-navy">CPU:</strong> <span className="text-gray-700">Octa-Core</span></div>
                 <div><strong className="text-deep-navy">GPU:</strong> <span className="text-gray-700">Mali-G610 MC4</span></div>
                 <div><strong className="text-deep-navy">RAM:</strong> <span className="text-gray-700">16GB DDR4</span></div>
                 <div><strong className="text-deep-navy">저장공간:</strong> <span className="text-gray-700">256GB Flash</span></div>
-                <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0</span></div>
+                <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0 (15.0 Up)</span></div>
                 <div><strong className="text-deep-navy">Wi-Fi:</strong> <span className="text-gray-700">IEEE 802.11a/b/g/n/ac/ax (Wi-Fi 6), 2.4/5GHz</span></div>
                 <div><strong className="text-deep-navy">블루투스:</strong> <span className="text-gray-700">5.2</span></div>
                 <div><strong className="text-deep-navy">Windows OPS 슬롯:</strong> <span className="text-gray-700">80핀 OPS 슬롯</span></div>
@@ -1347,10 +1347,10 @@ const LandingPage = () => {
                 prices: {
                   cash: { wall: 2250000, stand: 2500000 },
                   installment: {
-                    '24': { wall: 117700, stand: 130800 },
-                    '36': { wall: 82500, stand: 91600 },
-                    '48': { wall: 67100, stand: 74500 },
-                    '60': { wall: 58300, stand: 64700 },
+                    '24': { wall: 117700, stand: 129800 },
+                    '36': { wall: 82500, stand: 92400 },
+                    '48': { wall: 67100, stand: 74800 },
+                    '60': { wall: 58300, stand: 64900 },
                   },
                 },
               },
@@ -1364,9 +1364,9 @@ const LandingPage = () => {
                   cash: { wall: 2750000, stand: 3000000 },
                   installment: {
                     '24': { wall: 143000, stand: 156200 },
-                    '36': { wall: 101200, stand: 110400 },
-                    '48': { wall: 82500, stand: 90000 },
-                    '60': { wall: 71500, stand: 78000 },
+                    '36': { wall: 101200, stand: 110000 },
+                    '48': { wall: 82500, stand: 89100 },
+                    '60': { wall: 71500, stand: 77000 },
                   },
                 },
               },
@@ -1378,10 +1378,10 @@ const LandingPage = () => {
                 prices: {
                   cash: { wall: 3450000, stand: 3800000 },
                   installment: {
-                    '24': { wall: 179300, stand: 197500 },
-                    '36': { wall: 126500, stand: 139400 },
-                    '48': { wall: 102300, stand: 112800 },
-                    '60': { wall: 89100, stand: 98200 },
+                    '24': { wall: 179300, stand: 198000 },
+                    '36': { wall: 126500, stand: 139700 },
+                    '48': { wall: 102300, stand: 113300 },
+                    '60': { wall: 89100, stand: 97900 },
                   },
                 },
               },
@@ -1435,10 +1435,13 @@ const LandingPage = () => {
                         </span>
                       </div>
                       {product.discount && (
-                        <div className="mt-2 pt-2 border-t border-gray-100">
-                          <p className="text-xs text-vibrant-orange font-semibold">
-                            {product.discount.toLocaleString()}원 할인
-                          </p>
+                        <div className="mt-3 pt-3 border-t-2 border-vibrant-orange/30">
+                          <div className="bg-vibrant-orange/10 rounded-lg p-3 text-center">
+                            <p className="text-lg md:text-xl font-black text-vibrant-orange">
+                              {product.discount.toLocaleString()}원 할인
+                            </p>
+                            <p className="text-xs text-gray-600 mt-1">정가 대비 특별 할인</p>
+                          </div>
                         </div>
                       )}
                     </div>
