@@ -1431,7 +1431,7 @@ const LandingPage = () => {
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-600">전용 이동형 스탠드</span>
                         <span className="font-bold text-deep-navy">
-                          {(product.prices.cash.stand - product.prices.cash.wall).toLocaleString()}원
+                          {product.prices.cash.stand.toLocaleString()}원
                         </span>
                       </div>
                       {product.discount && (
