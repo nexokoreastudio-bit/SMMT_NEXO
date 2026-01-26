@@ -176,7 +176,7 @@ const LandingPage = () => {
       },
       {
         q: '지방 학원도 설치 가능한가요?',
-        a: '네, 전국(제주/도서산간 제외) 어디든 설치 가능합니다. SMMT 공동구매 혜택인 \'무료 배송/설치\'는 전국 동일하게 적용됩니다.',
+        a: '네, 전국(제주/도서산간 제외) 어디든 설치 가능합니다. 수도권은 무료 설치이며, 수도권 외 지역은 설치비 11만원이 추가됩니다. 📢 이번 SMMT 공구 기간에만 계단 운반비(양중비)나 사다리차 비용이 무료입니다! 보통은 이 비용이 발생하지만, 이번 공구 신청자에 한해 본사가 전액 부담합니다. (단, 현장 상황 사전 고지 필요)',
       },
     ],
     결제지원: [
@@ -191,7 +191,7 @@ const LandingPage = () => {
     {
       icon: <i className="fa-solid fa-eye"></i>,
       title: '디스플레이',
-      spec: 'Zero-Bonding & Anti-Glare / 완전 제로 반사 + 9H 경도 강화유리',
+      spec: '무반사(최상위등급) & Zero-Bonding / 완전 제로 반사 + 9H 경도 강화유리',
       description: '형광등 아래서도 선명한 시인성, 완벽한 필기감, 스크래치 방지',
     },
     {
@@ -391,7 +391,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* NX-H Series 소개 섹션 */}
+      {/* NX Series 소개 섹션 */}
       <section className="pt-24 pb-20 bg-gradient-to-br from-deep-navy/5 to-white px-4 snap-start">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -411,7 +411,7 @@ const LandingPage = () => {
               ⚡ 압도적 스펙, 수업의 격을 높이다
             </motion.span>
             <h2 className="text-3xl md:text-5xl font-black text-deep-navy leading-tight mb-6">
-              NEXO NX-H Series,
+              NEXO NX Series,
               <br />
               <span className="text-vibrant-orange underline decoration-4 underline-offset-4">
                 모든 과목을 아우르는 고사양 전자칠판
@@ -427,7 +427,7 @@ const LandingPage = () => {
                 <strong className="text-vibrant-orange">Android 13.0 (15.0 Up)</strong> · <strong className="text-vibrant-orange">Octa-Core</strong> · <strong className="text-vibrant-orange">16GB / 256GB</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
               </p>
               <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-                수학뿐만 아니라 모든 과목을 위한 <strong className="text-deep-navy">All-Rounder</strong> 고사양 스펙
+                모든 과목을 위한 <strong className="text-deep-navy">All-Rounder</strong> 고사양 스펙
               </p>
             </div>
           </motion.div>
@@ -595,7 +595,7 @@ const LandingPage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3">
               압도적 스펙으로 모든 과목을 완벽 지원
             </h2>
-            <p className="text-gray-600 mt-3">수학, 영어, 과학, 논술까지 모든 수업 환경을 아우르는 NX-H Series</p>
+            <p className="text-gray-600 mt-3">수학, 영어, 과학, 논술까지 모든 수업 환경을 아우르는 NX Series</p>
           </motion.div>
 
           {/* 기능 1: 인피니티 캔버스 */}
@@ -701,7 +701,7 @@ const LandingPage = () => {
       </section>
 
       {/* Why NEXO - 핵심 기능 강조 */}
-      <section className="pt-24 pb-20 bg-gradient-to-br from-deep-navy to-slate-900 px-4 snap-start">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-slate-900 via-deep-navy to-slate-800 px-4 snap-start">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -722,14 +722,14 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                icon: <i className="fa-solid fa-microchip"></i>,
-                title: 'NX-H Series 독점 사양',
-                description: 'Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB 등 고사양 스펙 부각',
+                icon: <i className="fa-solid fa-sliders"></i>,
+                title: '사용자별 맞춤설정 (임계값)',
+                description: '다양한 펜 종류 지원, 각 사용자별 임계값 조정으로 얇은 글씨와 두꺼운 글씨를 편리하게 설정 가능',
               },
               {
-                icon: <i className="fa-solid fa-eye"></i>,
-                title: 'Zero-Bonding & Anti-Glare',
-                description: '완전 제로 반사, 고강도 강화유리의 시인성 및 필기감',
+                icon: <i className="fa-solid fa-mobile-screen-button"></i>,
+                title: '폰 공유 솔루션 (PHONE SHARE)',
+                description: '교육/회의 환경에서 실시간 사진/영상 공유를 위한 필수 기능. 학습과 회의에 필요한 자료를 전자칠판에 실시간으로 표시하는 Quick SHARE',
               },
               {
                 icon: <i className="fa-solid fa-wifi"></i>,
@@ -741,6 +741,16 @@ const LandingPage = () => {
                 title: 'Usability',
                 description: '간편한 QR코드 생성/공유, 멀티태스킹 분할 화면',
               },
+              {
+                icon: <i className="fa-solid fa-microchip"></i>,
+                title: 'NX Series 독점 사양',
+                description: 'Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB 등 고사양 스펙',
+              },
+              {
+                icon: <i className="fa-solid fa-eye"></i>,
+                title: '무반사(최상위등급) & Zero-Bonding',
+                description: '완전 제로 반사, 고강도 강화유리의 시인성 및 필기감',
+              },
             ].map((feature, index) => (
               <motion.div
                 key={index}
@@ -748,11 +758,13 @@ const LandingPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:shadow-xl"
+                className="bg-gradient-to-br from-slate-800/95 to-slate-700/95 rounded-2xl p-8 border-2 border-white/40 hover:border-vibrant-orange/60 hover:bg-gradient-to-br hover:from-slate-800 hover:to-slate-700 transition-all duration-300 hover:shadow-2xl hover:shadow-vibrant-orange/30"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-vibrant-orange/20 flex items-center justify-center text-vibrant-orange text-2xl">
-                    {feature.icon}
+                  <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-br from-vibrant-orange/40 to-vibrant-orange/30 flex items-center justify-center text-vibrant-orange text-3xl">
+                    <div style={{ WebkitFontSmoothing: 'antialiased', textRendering: 'optimizeLegibility', fontWeight: 'bold' }}>
+                      {feature.icon}
+                    </div>
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
@@ -781,7 +793,7 @@ const LandingPage = () => {
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest">PRODUCT SPECS</span>
             <h2 className="text-3xl font-bold text-deep-navy mt-2">
-              NX-H Series 압도적 스펙,
+              NX Series 압도적 스펙,
               <br />
               모든 과목을 완벽 지원
             </h2>
@@ -817,7 +829,7 @@ const LandingPage = () => {
               <i className="fa-solid fa-check text-vibrant-orange mr-1"></i> 윈도우(PC) 판서 프로그램도 기본 제공됩니다.
             </p>
             <p className="text-vibrant-orange font-bold text-sm">
-              <i className="fa-solid fa-star mr-1"></i> NX-H Series 독점 사양: Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB로 모든 과목 완벽 지원
+              <i className="fa-solid fa-star mr-1"></i> NX Series 독점 사양: Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB로 모든 과목 완벽 지원
             </p>
           </div>
         </div>
@@ -898,7 +910,7 @@ const LandingPage = () => {
                 )}
                 
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2">NX-H Series</h3>
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2">NX Series</h3>
                   <p className="text-gray-400 text-sm mb-4">{product.label}</p>
                   <div className="text-4xl md:text-5xl font-black text-vibrant-orange">{product.size}</div>
                 </div>
@@ -974,7 +986,7 @@ const LandingPage = () => {
             className="text-center mb-12"
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest">SIZE GUIDE</span>
-            <h2 className="text-3xl font-bold text-deep-navy mt-2">"우리 학원엔 몇 인치가 맞을까요?"</h2>
+            <h2 className="text-3xl font-bold text-deep-navy mt-2">"우리 학원에는 몇 인치가 맞을까요?"</h2>
             <p className="text-gray-500 mt-2">가장 많이 고민하시는 부분, 딱 정해드립니다.</p>
           </motion.div>
 
@@ -1203,7 +1215,7 @@ const LandingPage = () => {
             className="text-center mb-12"
           >
             <span className="text-vibrant-orange font-bold text-sm tracking-widest uppercase">PRODUCT SPECIFICATIONS</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">넥소 NX-H 시리즈 상세 사양</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mt-3 mb-3">넥소 NX 시리즈 상세 사양</h2>
             <p className="text-gray-600 text-base">65인치, 75인치, 86인치 공통 사양</p>
           </motion.div>
 
@@ -1494,7 +1506,7 @@ const LandingPage = () => {
             <div className="grid md:grid-cols-3 gap-4 mb-6">
               <div className="flex items-center gap-2 text-sm">
                 <i className="fa-solid fa-check-circle text-vibrant-orange"></i>
-                <span className="text-gray-700">무료 설치 및 교육</span>
+                <span className="text-gray-700">설치 및 교육 (수도권 무료, 수도권 외 11만원)</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <i className="fa-solid fa-check-circle text-vibrant-orange"></i>
@@ -1505,9 +1517,12 @@ const LandingPage = () => {
                 <span className="text-gray-700">이동형 스탠드 옵션</span>
               </div>
             </div>
-            <div className="border-t border-gray-200 pt-4">
+            <div className="border-t border-gray-200 pt-4 space-y-2">
               <p className="text-xs text-gray-500 text-center">
                 *벽면 설치 시, 스탠드 비용 제외
+              </p>
+              <p className="text-xs text-vibrant-orange font-semibold text-center">
+                📢 이번 SMMT 공구 기간에만 '무료'입니다! 보통은 계단 운반비(양중비)나 사다리차 비용이 발생하지만, 이번 공구 신청자에 한해 본사가 전액 부담합니다. (단, 현장 상황 사전 고지 필요)
               </p>
             </div>
           </motion.div>
@@ -1699,8 +1714,8 @@ const LandingPage = () => {
                   },
                   {
                     icon: <i className="fa-solid fa-truck-fast text-xl"></i>,
-                    title: '설치비 및 배송비 무료',
-                    desc: '지방, 계단 양중비(사다리차)까지 100% 지원',
+                    title: '설치비 및 배송비',
+                    desc: '수도권 무료, 수도권 외 지역 설치비 11만원 추가.',
                   },
                   {
                     icon: <i className="fa-solid fa-credit-card text-xl"></i>,
