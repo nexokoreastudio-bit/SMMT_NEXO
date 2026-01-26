@@ -176,7 +176,7 @@ const LandingPage = () => {
       },
       {
         q: '지방 학원도 설치 가능한가요?',
-        a: '네, 전국(제주/도서산간 제외) 어디든 설치 가능합니다. 수도권은 무료 설치이며, 수도권 외 지역은 설치비 11만원이 추가됩니다. 📢 이번 SMMT 공구 기간에만 계단 운반비(양중비)나 사다리차 비용이 무료입니다! 보통은 이 비용이 발생하지만, 이번 공구 신청자에 한해 본사가 전액 부담합니다. (단, 현장 상황 사전 고지 필요)',
+        a: '네, 전국(제주/도서산간 제외) 어디든 설치 가능합니다. 수도권은 무료 설치이며, 수도권 외 지역은 설치비 11만원이 추가됩니다.',
       },
     ],
     결제지원: [
@@ -203,7 +203,7 @@ const LandingPage = () => {
     {
       icon: <i className="fa-solid fa-microchip"></i>,
       title: '시스템 사양',
-      spec: 'Android 13.0 (15.0 Up) / Octa-Core / 16GB / 256GB',
+      spec: 'Android 13.0 (15.0 Up) / Octa-Core / RAM : 16GB / ROM : 256GB',
       description: '모든 과목(영어, 과학, 논술)을 완벽 지원하는 압도적 고사양 스펙',
     },
   ];
@@ -424,7 +424,7 @@ const LandingPage = () => {
             </h2>
             <div className="mt-8 mb-6">
               <p className="text-deep-navy text-lg md:text-xl font-semibold mb-4">
-                <strong className="text-vibrant-orange">Android 13.0 (15.0 Up)</strong> · <strong className="text-vibrant-orange">Octa-Core</strong> · <strong className="text-vibrant-orange">16GB / 256GB</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
+                <strong className="text-vibrant-orange">Android 13.0 (15.0 Up)</strong> · <strong className="text-vibrant-orange">Octa-Core</strong> · <strong className="text-vibrant-orange">RAM : 16GB / ROM : 256GB</strong> · <strong className="text-vibrant-orange">Zero-Bonding</strong>
               </p>
               <p className="text-gray-700 text-base md:text-lg leading-relaxed">
                 모든 과목을 위한 <strong className="text-deep-navy">All-Rounder</strong> 고사양 스펙
@@ -722,9 +722,9 @@ const LandingPage = () => {
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                icon: <i className="fa-solid fa-sliders"></i>,
-                title: '사용자별 맞춤설정 (임계값)',
-                description: '다양한 펜 종류 지원, 각 사용자별 임계값 조정으로 얇은 글씨와 두꺼운 글씨를 편리하게 설정 가능',
+                icon: <i className="fa-solid fa-eye"></i>,
+                title: '무반사(최상위등급) & Zero-Bonding',
+                description: '완전 제로 반사, 고강도 강화유리의 시인성 및 필기감',
               },
               {
                 icon: <i className="fa-solid fa-mobile-screen-button"></i>,
@@ -744,12 +744,12 @@ const LandingPage = () => {
               {
                 icon: <i className="fa-solid fa-microchip"></i>,
                 title: 'NX Series 독점 사양',
-                description: 'Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB 등 고사양 스펙',
+                description: 'Android 13.0 (15.0 Up), Octa-Core, RAM : 16GB / ROM : 256GB 등 고사양 스펙',
               },
               {
-                icon: <i className="fa-solid fa-eye"></i>,
-                title: '무반사(최상위등급) & Zero-Bonding',
-                description: '완전 제로 반사, 고강도 강화유리의 시인성 및 필기감',
+                icon: <i className="fa-solid fa-sliders"></i>,
+                title: '사용자별 맞춤설정 (임계값)',
+                description: '다양한 펜 종류 지원, 각 사용자별 임계값 조정으로 얇은 글씨와 두꺼운 글씨를 편리하게 설정 가능',
               },
             ].map((feature, index) => (
               <motion.div
@@ -827,9 +827,6 @@ const LandingPage = () => {
           <div className="mt-6 text-center space-y-2">
             <p className="text-gray-600 text-sm">
               <i className="fa-solid fa-check text-vibrant-orange mr-1"></i> 윈도우(PC) 판서 프로그램도 기본 제공됩니다.
-            </p>
-            <p className="text-vibrant-orange font-bold text-sm">
-              <i className="fa-solid fa-star mr-1"></i> NX Series 독점 사양: Android 13.0 (15.0 Up), Octa-Core, 16GB / 256GB로 모든 과목 완벽 지원
             </p>
           </div>
         </div>
@@ -1305,12 +1302,22 @@ const LandingPage = () => {
               시스템 사양 (Riotouch Central)
             </h3>
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              {/* CPU, ROM, RAM 강조 섹션 */}
+              <div className="flex flex-wrap gap-4 mb-6 pb-4 border-b-2 border-vibrant-orange/30">
+                <div className="flex items-center gap-2">
+                  <strong className="text-vibrant-orange font-bold">CPU:</strong>
+                  <span className="text-vibrant-orange font-semibold">Octa-Core</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <strong className="text-vibrant-orange font-bold">RAM:</strong>
+                  <span className="text-vibrant-orange font-semibold">16GB DDR4</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <strong className="text-vibrant-orange font-bold">ROM:</strong>
+                  <span className="text-vibrant-orange font-semibold">256GB</span>
+                </div>
+              </div>
               <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div><strong className="text-deep-navy">칩셋:</strong> <span className="text-gray-700">Rockchip RK3588</span></div>
-                <div><strong className="text-deep-navy">CPU:</strong> <span className="text-gray-700">Octa-Core</span></div>
-                <div><strong className="text-deep-navy">GPU:</strong> <span className="text-gray-700">Mali-G610 MC4</span></div>
-                <div><strong className="text-deep-navy">RAM:</strong> <span className="text-gray-700">16GB DDR4</span></div>
-                <div><strong className="text-deep-navy">저장공간:</strong> <span className="text-gray-700">256GB Flash</span></div>
                 <div><strong className="text-deep-navy">안드로이드 버전:</strong> <span className="text-gray-700">Android 13.0 (15.0 Up)</span></div>
                 <div><strong className="text-deep-navy">Wi-Fi:</strong> <span className="text-gray-700">IEEE 802.11a/b/g/n/ac/ax (Wi-Fi 6), 2.4/5GHz</span></div>
                 <div><strong className="text-deep-navy">블루투스:</strong> <span className="text-gray-700">5.2</span></div>
@@ -1526,6 +1533,70 @@ const LandingPage = () => {
               </p>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* A/S System Section */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 to-white px-4 snap-start">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-deep-navy mb-3">
+              A/S SYSTEM
+            </h2>
+            <p className="text-2xl md:text-3xl font-bold text-deep-navy">
+              <span className="text-vibrant-orange">NEXO</span>의 A/S는 끝이 없다!
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: <i className="fa-solid fa-headset"></i>,
+                title: '24시간 직접 전화 상담',
+                description: '언제든지 전문 상담원이 직접 응대합니다',
+              },
+              {
+                icon: <i className="fa-solid fa-wrench"></i>,
+                title: '무상 1년 보증 서비스',
+                description: '구매 후 1년간 무상 A/S 지원',
+              },
+              {
+                icon: <i className="fa-solid fa-laptop"></i>,
+                title: '원격 서비스',
+                description: '원격으로 빠르고 정확한 문제 해결',
+              },
+              {
+                icon: <i className="fa-solid fa-hard-hat"></i>,
+                title: '본사 엔지니어 방문 서비스',
+                description: '필요 시 본사 엔지니어가 직접 방문',
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-6 border-2 border-yellow-300 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+              >
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-yellow-400 border-2 border-red-500 flex items-center justify-center text-3xl text-black">
+                  {service.icon}
+                </div>
+                <h3 className="text-lg font-bold text-red-600 mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {service.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
