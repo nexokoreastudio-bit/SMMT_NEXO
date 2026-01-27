@@ -2202,7 +2202,7 @@ const LandingPage = () => {
               </p>
             </div>
             <motion.a
-              href="https://pf.kakao.com/_your_kakao_channel"
+              href="https://open.kakao.com/o/gsXGYodi"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -2293,7 +2293,7 @@ const LandingPage = () => {
       >
         <div className="flex items-center h-16">
           <a
-            href="https://pf.kakao.com/_your_kakao_channel"
+            href="https://open.kakao.com/o/gsXGYodi"
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-2 bg-yellow-400 text-deep-navy font-bold h-full"
