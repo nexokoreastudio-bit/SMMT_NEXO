@@ -102,11 +102,51 @@ const LandingPage = () => {
       return;
     }
     
-    // 구글 폼 URL
-    const googleFormUrl = 'https://docs.google.com/forms/d/1HmA3oeoJqG6xbiU4oTsy5TqnHwLvgRCnYFGK7obktIc/edit?ts=697722bb';
+    const form = e.target;
+    const formData = new FormData(form);
     
-    // 구글 폼 페이지로 리다이렉트
-    window.location.href = googleFormUrl;
+    // 구글 시트에 저장할 데이터 준비
+    const submissionData = {
+      timestamp: new Date().toLocaleString('ko-KR'),
+      customerName: formData.get('customer_name'),
+      orgName: formData.get('org_name') || '',
+      phoneNumber: formData.get('phone_number'),
+      region: formData.get('region'),
+      size: formData.get('size'),
+      mountType: formData.get('mount_type') === 'stand' ? '이동형 스탠드' : '벽걸이',
+      quantity: formData.get('quantity'),
+      totalPrice: calculateTotalPrice(),
+      unitPrice: priceData[formData.get('size')]?.[formData.get('mount_type')] || 0,
+      utmSource: formData.get('utm_source') || 'smmt_gonggu',
+      inquiryDate: formData.get('inquiry_date'),
+    };
+    
+    // Netlify Function을 통해 Google Sheets에 저장
+    try {
+      const response = await fetch('/.netlify/functions/save-to-sheets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        alert('공동구매 주문이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+        form.reset();
+        setSelectedSize('');
+        setSelectedMountType('wall');
+        setSelectedQuantity('');
+      } else {
+        throw new Error(result.error || result.details || '데이터 저장 실패');
+      }
+      
+    } catch (error) {
+      console.error('Google Sheets API error:', error);
+      alert('신청 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   const painPoints = [
