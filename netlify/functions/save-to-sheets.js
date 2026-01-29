@@ -50,6 +50,8 @@ exports.handler = async (event, context) => {
 
     // 폼 데이터 파싱
     const formData = JSON.parse(event.body);
+    console.log('Received form data:', formData);
+    
     const {
       customerName,
       orgName,
@@ -61,6 +63,8 @@ exports.handler = async (event, context) => {
       unitPrice,
       totalPrice,
     } = formData;
+    
+    console.log('orgName value:', orgName, 'type:', typeof orgName);
 
     // Service Account 인증 설정
     const serviceAccountAuth = new JWT({
@@ -83,7 +87,7 @@ exports.handler = async (event, context) => {
       await sheet.setHeaderRow([
         '제출일시',
         '원장님 성함',
-        '학원명',
+        '학원명 (선택)',
         '연락처',
         '지역 / 설치 환경',
         '인치 종류',
@@ -94,11 +98,11 @@ exports.handler = async (event, context) => {
       ]);
     }
 
-    // 새 행 추가
+    // 새 행 추가 (헤더 이름과 정확히 일치시켜야 함)
     const row = {
       '제출일시': new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
       '원장님 성함': customerName || '',
-      '학원명': orgName || '',
+      '학원명 (선택)': orgName !== undefined && orgName !== null ? String(orgName) : '',
       '연락처': phoneNumber || '',
       '지역 / 설치 환경': region || '',
       '인치 종류': size ? `${size}인치` : '',
@@ -107,6 +111,8 @@ exports.handler = async (event, context) => {
       '단가': unitPrice ? `${unitPrice.toLocaleString()}원` : '',
       '총 주문 금액': totalPrice ? `${totalPrice.toLocaleString()}원` : ''
     };
+    
+    console.log('Row data to save:', row);
 
     await sheet.addRow(row);
 
